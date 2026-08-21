@@ -1,0 +1,441 @@
+.cv-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  color: var(--text-white);
+}
+
+.cv-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  margin-top: 70px;
+}
+
+.cv-content-container .cv-main-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  opacity: 0;
+  animation: cv-heading-slide 1.5s ease-out 0.3s forwards;
+  will-change: opacity;
+}
+
+@keyframes cv-heading-slide {
+  to {
+    opacity: 1;
+  }
+}
+
+.cv-content-container .cv-main-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan-glow),
+    transparent
+  );
+}
+
+.pdf-pagination-controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.pdf-pagination-controls-container .pdf-page-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-grey);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.pdf-pagination-controls-container .pdf-pagination-prev-btn,
+.pdf-pagination-controls-container .pdf-pagination-next-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--cyan-glow);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 20px 1px var(--bg-dark-blue);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.cv-pdf-viewer-and-download-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.download-cv-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glow-blur);
+  -webkit-backdrop-filter: var(--glow-blur);
+  /* border: 1px solid var(--glass-border); */
+  border-radius: 32px;
+  padding: 48px;
+  max-width: 400px;
+  width: 100%;
+  /* box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 60px rgba(0, 212, 255, 0.15); */
+  opacity: 0;
+  transform: translateX(40px);
+  animation: download-cv-slide 700ms ease-out 0.4s forwards;
+  will-change: opacity, transform;
+  background: linear-gradient(
+    135deg,
+    /* rgba(0, 255, 255, 0.08), */
+    rgba(0, 255, 255, 0.03)
+  );
+  transition: all .4s ease;
+  box-shadow: inset 0 0 20px 1px var(--glass-bg);
+}
+
+@keyframes download-cv-slide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.download-cv-heading-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.download-cv-heading-container .download-cv-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.download-cv-heading-container .download-cv-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan-glow),
+    transparent
+  );
+}
+
+.download-cv-subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-grey);
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 0 30px 0;
+  flex-wrap: wrap;
+}
+
+/* Download CV */
+.download-cv-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--text-white);
+  text-decoration: none;
+  box-shadow: 0 0 20px var(--glass-bg);
+  border-color: var(--cyan-glow);
+}
+
+.download-cv-btn.disabled {
+  background-color: var(--glass-bg);
+  border: 1.5px solid var(--glass-border) !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.download-cv-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 212, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.download-cv-btn:hover {
+  border-color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.08);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+  transform: translateY(-5px);
+  color: var(--text-white);
+  background: rgba(0, 212, 255, 0.12);
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+}
+
+.download-cv-btn:hover::before {
+  left: 100%;
+}
+
+.download-cv-btn-span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    box-shadow: none;
+  }
+}
+
+.download-cv-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--text-white);
+  text-decoration: none;
+  box-shadow: 0 0 20px var(--glass-bg);
+  border-color: var(--glass-border);
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  box-shadow: none;
+
+  &:hover {
+    border: 1px solid var(--glass-border);
+  }
+}
+
+/* PDF Loading */
+.pdf-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.spinner {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.pdf-loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  gap: 20px;
+  color: var(--text-grey);
+}
+
+/* PDF Error */
+.pdf-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 450px;
+  background-color: var(--error-bg);
+  backdrop-filter: var(--glow-blur);
+  border: 1px solid var(--error-border-color);
+  border-radius: 20px;
+  padding: 40px;
+  /* box-shadow: 0 0 40px var(--error-bg); */
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: cv-error-slide 700ms ease-out 0.4s forwards; /* duration + delay */
+  will-change: opacity;
+
+  &:hover {
+    box-shadow: 0 0 40px var(--error-bg);
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+@keyframes cv-error-slide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pdf-error-subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-grey);
+}
+
+.pdf-retry-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  background-color: var(--bg-dark-blue);
+}
+
+.pdf-retry-btn:hover {
+  color: var(--cyan-glow); /* darker blue hover */
+  border: 1px solid var(--cyan-glow);
+  /* box-shadow: 0 0 20px 1px var(--cyan-glow); */
+}
+
+.show-pdf {
+  display: block;
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: cv-pdf-slide 700ms ease-out 0.4s forwards; /* duration + delay */
+  will-change: opacity;
+}
+
+@keyframes cv-pdf-slide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hide-pdf {
+  display: none;
+}
+
+/* No Skills */
+.no-cv-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  opacity: 0;
+  transform: scale(0);
+  animation: no-cv-slide 700ms ease-out 0.4s forwards; /* duration + delay */
+  will-change: opacity;
+}
+
+@keyframes no-cv-slide {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.no-cv-img {
+  width: 280px;
+}
+
+.no-cv-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.no-cv-description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  color: var(--text-grey);
+}

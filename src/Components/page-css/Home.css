@@ -1,0 +1,135 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 87vh; */
+  min-height: 100vh;
+  width: 100%;
+  padding: 6rem 2rem;
+  overflow: hidden;
+
+  /* background: url("https://ine.com/assets/backgrounds/menu-bg--desktop.svg") no-repeat; */
+  /* background-size: cover; */
+  /* background: radial-gradient(circle, var(--blue-accent), transparent); */
+  /* background-color: #f0f0f0; */
+}
+
+.home-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content-container h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-white), var(--cyan-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  padding: 0 0 10px 0;
+}
+
+.home-content-subtitle {
+  font-size: 1.3rem;
+  color: var(--text-grey);
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.home-content-container h1 {
+  opacity: 0;
+  transform: translateX(-40px);  /* start slightly off-screen left */
+  animation: home-heading-slideIn 700ms ease-out 120ms forwards; /* duration + delay */
+  will-change: transform, opacity;                  /* performance hint */
+}
+@keyframes home-heading-slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);     /* end "stable" at natural position */
+  }
+}
+
+.home-content-container p {
+  opacity: 0;
+  transform: translateX(-40px);  /* start slightly off-screen left */
+  animation: home-para-slideIn 700ms ease-out 500ms forwards; /* duration + delay */
+  will-change: transform, opacity;                  /* performance hint */
+}
+
+@keyframes home-para-slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);     /* end "stable" at natural position */
+  }
+}
+
+/* Glassmorphic Button Styling */
+.home-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: home-btn-slideIn 700ms ease-out 800ms forwards;
+  background: var(--cyan-glow-light);
+  border: 1px solid var(--glass-border); /* light border */
+  color: var(--cyan-glow);
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: inset 0 0 10px 1px var(--glass-bg);
+}
+
+.home-btn:hover {
+  background: var(--bg-dark-blue);
+  border-color: var(--cyan-glow);
+  /* box-shadow: 0 8px 32px rgba(0, 212, 255, 0.25); */
+  transform: translateY(-2px);
+}
+
+.home-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
+}
+
+@keyframes home-btn-slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);     /* end "stable" at natural position */
+  }
+}
+
+/* Respect users who prefer reduced motion */
+/* @media (prefers-reduced-motion: reduce) {
+  .home-content-container h1 p {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+} */
+
+.home-page-to-about-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--cyan-glow);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--cyan-glow);
+  }
+}
