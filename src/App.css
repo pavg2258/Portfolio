@@ -78,21 +78,69 @@ body {
 }
 
 :root {
+    /* ── Base backgrounds ── */
     --bg-dark: #0f1419;
     --bg-indigo: #1a2a3f;
+
+    /* Dark layered surfaces used by cards, sidebars, panels */
+    --surface-dark: rgba(10, 16, 30, 0.92);      /* sidebar / heavy card */
+    --surface-mid: rgba(13, 20, 32, 0.75);        /* content panel */
+    --surface-glass: rgba(15, 25, 40, 0.55);      /* inner containers / desc lists */
+    --surface-hover: rgba(0, 212, 255, 0.08);     /* hover fill */
+
+    /* ── Glass / borders ── */
     --glass-bg: rgba(0, 212, 255, 0.3);
     --glass-border: rgba(102, 217, 240, 0.2);
+    --glass-border-soft: rgba(102, 217, 240, 0.1);
+    --glass-border-strong: rgba(102, 217, 240, 0.35);
     --bg-color: rgba(102, 217, 240, 0.486);
+    --glass-card-bg: rgba(6, 14, 30, 0.65);
+    --glass-card-border: rgba(255, 255, 255, 0.07);
+    --glass-surface-light: rgba(255, 255, 255, 0.04);
+    --glass-surface-border: rgba(255, 255, 255, 0.09);
+
+    /* ── Accent colours ── */
     --cyan-glow: #00d4ff;
     --cyan-glow-light: rgb(102 217 240 / 8%);
+    --cyan-glow-weak: rgba(0, 212, 255, 0.06);
     --pink-accent: #ff006e;
+    --blue-accent: #0066ff;
+    --indigo-accent: rgba(79, 70, 229, 0.18);
+
+    /* ── Text hierarchy ── */
+    --text-white: #ffffff;
+    --text-primary: #d6e3f0;     /* body text on dark navy cards */
+    --text-secondary: #a0b9d5;   /* subtitles, labels (same as --text-muted visually) */
+    --text-grey: #b0b0b0;
+    --text-dim: #8aa3bc;         /* sub-items, fine print */
+    --text-muted: rgba(160, 185, 215, 0.85);
+
+    /* ── Error / Status ── */
     --error-bg: rgba(255, 100, 100, 0.1);
-    /* light red background for error */
     --error-border-color: #ff6464;
     --error-red: #ff000d;
-    --blue-accent: #0066ff;
-    --text-white: #ffffff;
-    --text-grey: #b0b0b0;
+    --success-green: #22c55e;
+    --success-green-glow: rgba(34, 197, 94, 0.6);
+
+    /* ── Shadows ── */
+    --shadow-card: 0 8px 48px rgba(0, 0, 0, 0.45);
+    --shadow-card-hover: 0 12px 56px rgba(0, 0, 0, 0.5);
+    --shadow-glow-cyan: 0 0 36px rgba(0, 212, 255, 0.08);
+    --shadow-glow-cyan-strong: 0 0 48px rgba(0, 212, 255, 0.18);
+
+    /* ── Transitions ── */
+    --transition-fast: 0.18s ease;
+    --transition-base: 0.25s ease;
+    --transition-slow: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* ── Border radii ── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-pill: 99px;
+
+    /* ── Misc ── */
     --glow-blur: blur(20px);
     --font-lucida: "Lucida Calligraphy";
     --font-roboto: "Roboto";

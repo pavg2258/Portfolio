@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "../page-css/cv.css";
+import "../page-css/CV.css";
 
 import { Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-import DotLoader from "react-spinners/DotLoader";
+import { DotLoader } from "react-spinners";
 import { FaCaretLeft } from "react-icons/fa";
 import { FaCaretRight } from "react-icons/fa";
 import { BsExclamationCircleFill } from "react-icons/bs";
@@ -70,19 +70,16 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
 
       {/* Error message */}
       {error && (
-        <div className="pdf-error">
-          <FaFilePdf
-            size={50}
-            color="rgba(216, 0, 11, 0.7)"
-            style={{ marginBottom: "15px" }}
-          />
-          <p className="pdf-error-subtitle">
-            <BsExclamationCircleFill color="rgba(216, 0, 11, 0.9)" /> {error}
+        <div className="no-cv-container">
+          <div className="no-cv-icon-ring">
+            <FaFilePdf size={42} color="var(--cyan-glow)" />
+          </div>
+          <h2 className="no-cv-heading">No CV Added Yet</h2>
+          <p className="no-cv-description">
+            A CV hasn&apos;t been uploaded to display here yet. Check back soon!
           </p>
-          <button className="pdf-retry-btn" onClick={onRetry}>
-            Retry <VscRefresh size={18} />
-          </button>
         </div>
+
       )}
 
       <div>

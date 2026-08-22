@@ -21,7 +21,8 @@
     "react-pdf": "^10.5.0",
     "react-router-dom": "^7.18.2",
     "react-spinners": "^0.17.0",
-    "react-toastify": "^11.1.0"
+    "react-toastify": "^11.1.0",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

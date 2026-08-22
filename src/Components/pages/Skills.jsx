@@ -1,10 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../page-css/Skills.css";
 import Footer from "./Footer";
-
-import axios from "axios";
-
-const no_skills_img = `https://assets.ccbp.in/frontend/react-js/jobby-app-not-found-img.png`;
 
 /* ─── Category → emoji icon ───────────────────────────────── */
 const categoryIcons = {
@@ -91,9 +87,143 @@ const useScrollReveal = () => {
   });
 };
 
+/* ─── Static Skills Data ──────────────────────────────────── */
+const skillsData = [
+  {
+    _id: "cat-1",
+    category: "Penetration Testing",
+    items: [
+      { name: "Burp Suite" },
+      { name: "Metasploit" },
+      { name: "Nmap" },
+      { name: "OWASP ZAP" },
+      { name: "Nikto" },
+      { name: "SQLMap" },
+      { name: "Hydra" },
+      { name: "John the Ripper" },
+    ],
+  },
+  {
+    _id: "cat-2",
+    category: "Network Security",
+    items: [
+      { name: "Wireshark" },
+      { name: "TCP/IP" },
+      { name: "DNS" },
+      { name: "Firewalls" },
+      { name: "VPN" },
+      { name: "IDS/IPS" },
+      { name: "Packet Analysis" },
+    ],
+  },
+  {
+    _id: "cat-3",
+    category: "Offensive Security",
+    items: [
+      { name: "Kali Linux" },
+      { name: "Privilege Escalation" },
+      { name: "Social Engineering" },
+      { name: "Vulnerability Assessment" },
+      { name: "Exploit Development" },
+      { name: "Post Exploitation" },
+    ],
+  },
+  {
+    _id: "cat-4",
+    category: "Web Frontend",
+    items: [
+      { name: "React.js" },
+      { name: "JavaScript" },
+      { name: "HTML5" },
+      { name: "CSS3" },
+      { name: "Bootstrap" },
+      { name: "Responsive Design" },
+    ],
+  },
+  {
+    _id: "cat-5",
+    category: "Backend Development",
+    items: [
+      { name: "Node.js" },
+      { name: "Express.js" },
+      { name: "REST APIs" },
+      { name: "Python" },
+      { name: "Flask" },
+    ],
+  },
+  {
+    _id: "cat-6",
+    category: "Database",
+    items: [
+      { name: "MongoDB" },
+      { name: "MySQL" },
+      { name: "SQLite" },
+      { name: "NoSQL" },
+    ],
+  },
+  {
+    _id: "cat-7",
+    category: "Programming Languages",
+    items: [
+      { name: "Python" },
+      { name: "JavaScript" },
+      { name: "C" },
+      { name: "C++" },
+      { name: "Java" },
+      { name: "Bash" },
+    ],
+  },
+  {
+    _id: "cat-8",
+    category: "Security Tools",
+    items: [
+      { name: "Nessus" },
+      { name: "Hashcat" },
+      { name: "Aircrack-ng" },
+      { name: "Gobuster" },
+      { name: "Dirb" },
+      { name: "Netcat" },
+      { name: "Enum4linux" },
+    ],
+  },
+  {
+    _id: "cat-9",
+    category: "Linux & OS",
+    items: [
+      { name: "Kali Linux" },
+      { name: "Ubuntu" },
+      { name: "Parrot OS" },
+      { name: "Windows Server" },
+      { name: "Shell Scripting" },
+    ],
+  },
+  {
+    _id: "cat-10",
+    category: "DevOps & Tools",
+    items: [
+      { name: "Git" },
+      { name: "GitHub" },
+      { name: "Docker" },
+      { name: "VS Code" },
+      { name: "Postman" },
+      { name: "Vite" },
+    ],
+  },
+  {
+    _id: "cat-11",
+    category: "CTF & Labs",
+    items: [
+      { name: "TryHackMe" },
+      { name: "HackTheBox" },
+      { name: "PicoCTF" },
+      { name: "OverTheWire" },
+      { name: "VulnHub" },
+    ],
+  },
+];
+
 /* ─── Main Component ──────────────────────────────────────── */
 const Skills = () => {
-  const [fetchedSkills, setFetchedSkills] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const terminalRef = useRef(null);
 
@@ -101,23 +231,20 @@ const Skills = () => {
 
   useEffect(() => {
     document.title = "Skills & Proficiencies | Innovex Portfolio";
-    // Animated terminal cursor blink is CSS-only
   }, []);
 
-  const onRetry = useCallback(() => getSkills(), []);
-
   /* Stats derived from data */
-  const totalSkills = fetchedSkills.reduce(
+  const totalSkills = skillsData.reduce(
     (acc, cat) => acc + (cat.items?.length || 0),
     0
   );
 
   /* Filter buttons */
-  const filters = ["All", ...fetchedSkills.map((s) => s.category)];
+  const filters = ["All", ...skillsData.map((s) => s.category)];
   const visible =
     activeFilter === "All"
-      ? fetchedSkills
-      : fetchedSkills.filter((s) => s.category === activeFilter);
+      ? skillsData
+      : skillsData.filter((s) => s.category === activeFilter);
 
   return (
     <>
@@ -148,7 +275,7 @@ const Skills = () => {
           {/* {apiStatus === apiConstantStatus.success && ( */}
           <div className="sk-stats-strip">
             <div className="sk-stat">
-              <span className="sk-stat-num">{fetchedSkills.length}</span>
+              <span className="sk-stat-num">{skillsData.length}</span>
               <span className="sk-stat-label">Categories</span>
             </div>
             <div className="sk-stat-divider" />
@@ -166,16 +293,9 @@ const Skills = () => {
         </div>
 
         {/* ── Content ── */}
-        <div className="skill-grid">{fetchedSkills.length === 0 ? (
-          <div className="no-skills-container">
-            <img src={no_skills_img} alt="No Skills" className="no-skill-img" />
-            <h2 className="no-skills-heading">No Skills Yet</h2>
-            <p className="no-skills-description">No skills have been added yet.</p>
-          </div>
-        ) : (
-          <>
-            {/* ── Filter pills ── */}
-            <div className="sk-filter-bar sk-reveal">
+        <div className="skill-grid">
+          {/* ── Filter pills ── */}
+          <div className="sk-filter-bar sk-reveal">
               {filters.map((f) => (
                 <button
                   key={f}
@@ -229,9 +349,7 @@ const Skills = () => {
                   </ul>
                 </li>
               ))}
-            </ul>
-          </>
-        )}
+          </ul>
         </div>
       </div>
       <Footer />

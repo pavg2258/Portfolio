@@ -145,7 +145,7 @@
 /* Subtitle */
 .skills-subtitle {
   font-size: 1.05rem;
-  color: rgba(160, 185, 215, 0.85);
+  color: var(--text-muted);
   margin-bottom: 28px;
   letter-spacing: 0.3px;
   opacity: 0;
@@ -210,8 +210,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--glass-surface-light);
+  border: 1px solid var(--glass-surface-border);
   border-radius: 14px;
   padding: 14px 32px;
   backdrop-filter: blur(12px);
@@ -340,10 +340,10 @@
   isolation: isolate;
 
   /* Glass base */
-  background: rgba(6, 14, 30, 0.65);
+  background: var(--glass-card-bg);
   backdrop-filter: blur(22px) saturate(160%);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--glass-card-border);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
