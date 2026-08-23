@@ -5,11 +5,12 @@
   align-items: center;
   justify-content: center;
   color: var(--text-white);
-  margin-top: 100px;
   padding: 0 5vw;
   /* Dynamic padding based on screen width */
   width: 100%;
   box-sizing: border-box;
+  margin-top: 0px !important;
+  padding-top: 100px !important;
 }
 
 :root {
@@ -414,8 +415,9 @@
 /* ── Tablets (Switch to 1-column layout) ── */
 @media (max-width: 968px) {
   .contact-main-container {
-    margin-top: 60px;
+    margin-top: 0px;
     padding: 0 40px;
+    padding-top: 100px;
     /* Strict left/right padding */
   }
 
@@ -456,7 +458,8 @@
 /* ── Mobile Devices ── */
 @media (max-width: 768px) {
   .contact-main-container {
-    padding: 0 24px;
+    padding: 0 50px;
+    padding-top: 50px;
     /* Slightly tighter padding for mobile */
   }
 
@@ -500,7 +503,8 @@
 @media (max-width: 480px) {
   .contact-main-container {
     padding: 0 16px;
-    margin-top: 40px;
+    margin-top: 0px;
+    padding-top: 100px;
   }
 
   .contact-content-wrapper {
@@ -549,6 +553,12 @@
 
 /* ── Extra Small Screens (Fold phones etc) ── */
 @media (max-width: 380px) {
+  .contact-main-container {
+    padding: 0 16px;
+    margin-top: 0px;
+    padding-top: 100px;
+  }
+
   .contact-heading {
     font-size: 2rem;
   }

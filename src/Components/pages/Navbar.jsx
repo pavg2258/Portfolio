@@ -1,96 +1,89 @@
-import React, { useState } from "react";
-import "../page-css/navbar.css";
-import { NavLink } from "react-router-dom";
-import { MdLightMode } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
-import { MdDarkMode } from "react-icons/md";
-import { MdOutlineDarkMode } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import "../page-css/Navbar.css";
 
 import portfolioImg from "../../assets/portfolio-logo.jpg";
 
 const navLinks = [
-  {
-    id: "HOME",
-    route: "/",
-    title: "Home",
-  },
-  {
-    id: "ABOUT",
-    route: "/about",
-    title: "About",
-  },
-  {
-    id: "SKILLS",
-    route: "/skills",
-    title: "Skills",
-  },
-  {
-    id: "PROJECTS",
-    route: "/projects",
-    title: "Projects",
-  },
-  {
-    id: "CONTACT",
-    route: "/contact",
-    title: "Contact",
-  },
-  {
-    id: "CURRICULUM_VITAE",
-    route: "/cv",
-    title: "CV",
-  },
+  { id: "HOME", route: "/", title: "Home" },
+  { id: "ABOUT", route: "/about", title: "About" },
+  { id: "SKILLS", route: "/skills", title: "Skills" },
+  { id: "PROJECTS", route: "/projects", title: "Projects" },
+  { id: "CONTACT", route: "/contact", title: "Contact" },
+  { id: "CURRICULUM_VITAE", route: "/cv", title: "CV" },
 ];
 
 const Navbar = () => {
-  // const [hoveredThemeBtn, setHoveredThemeBtn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
+  const toggleMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
-    <div className="navbar-container">
+    <nav className="navbar-container">
       <div className="navbar-logo-menu-container">
+
+        {/* Left: Your Original Logo Design */}
         <div className="navbar-logo-container">
-          <a href="/" className="navbar-logo-link-container">
+          <NavLink exact to="/" className="navbar-logo-link-container">
             <img src={portfolioImg} alt="Logo" className="navbar-logo" />
             <p className="navbar-logo-name">Innovex</p>
-          </a>
+          </NavLink>
         </div>
+
+        {/* Center: Your Original Desktop Menu */}
         <ul className="navbar-menu-list-container">
           {navLinks.map((eachLink) => (
-            <NavLink
-              key={eachLink.id}
-              to={eachLink.route}
-              title={eachLink.title}
-              className="navbar-menu-item"
-              activeClassName="active"
-            >
-              <li key={eachLink.id}>{eachLink.title}</li>
-            </NavLink>
+            <li key={eachLink.id} className="nav-item-wrapper">
+              <NavLink
+                exact={eachLink.route === "/"}
+                to={eachLink.route}
+                className="navbar-menu-item"
+                activeClassName="active"
+              >
+                {eachLink.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* Right: Mobile Hamburger Toggle (Hidden on Desktop) */}
+        <div
+          className={`mobile-menu-toggle ${isMobileMenuOpen ? "open" : ""}`}
+          onClick={toggleMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      {/* Full-Screen Mobile Menu Overlay (Hidden on Desktop) */}
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}>
+        <ul className="mobile-menu-list">
+          {navLinks.map((eachLink) => (
+            <li key={`mobile-${eachLink.id}`}>
+              <NavLink
+                exact={eachLink.route === "/"}
+                to={eachLink.route}
+                className="mobile-menu-item"
+                activeClassName="active"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {eachLink.title}
+              </NavLink>
+            </li>
           ))}
         </ul>
       </div>
-      {/* <button
-        className="navbar-light-dark-btn"
-        onMouseEnter={() => setHoveredThemeBtn(true)}
-        onMouseLeave={() => setHoveredThemeBtn(false)}
-      >
-        {isLightMode ? (
-          <>
-            {hoveredThemeBtn ? (
-              <MdLightMode size={25} />
-            ) : (
-              <MdOutlineLightMode size={25} />
-            )}
-          </>
-        ) : (
-          <>
-            {hoveredThemeBtn ? (
-              <MdDarkMode size={25} />
-            ) : (
-              <MdOutlineDarkMode size={25} />
-            )}
-          </>
-        )}
-      </button> */}
-    </div>
+    </nav>
   );
 };
 

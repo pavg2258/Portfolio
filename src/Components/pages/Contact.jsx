@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
-import "../page-css/contact.css";
+import "../page-css/Contact.css";
 
 import { FaGithub } from "react-icons/fa";
 import { ImLinkedin2 } from "react-icons/im";

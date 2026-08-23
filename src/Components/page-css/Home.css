@@ -1,18 +1,47 @@
+/* ============================================================
+   HOME PAGE — Ultra-Premium Editorial Cyber Design
+   ============================================================ */
+
 .home-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* min-height: 87vh; */
   min-height: 100vh;
   width: 100%;
-  padding: 6rem 2rem;
+  /* Fluid padding ensures the content never hits the edges of the screen */
+  padding: clamp(60px, 8vw, 120px) clamp(16px, 4vw, 40px);
   overflow: hidden;
+  z-index: 1;
+}
 
-  /* background: url("https://ine.com/assets/backgrounds/menu-bg--desktop.svg") no-repeat; */
-  /* background-size: cover; */
-  /* background: radial-gradient(circle, var(--blue-accent), transparent); */
-  /* background-color: #f0f0f0; */
+/* ── Cinematic Center Backlight ── */
+.home-cinematic-backlight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(300px, 50vw, 800px);
+  height: clamp(300px, 50vw, 800px);
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 60%);
+  filter: blur(50px);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+  animation: slowPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes slowPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
 }
 
 .home-content-container {
@@ -20,127 +49,245 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  z-index: 2;
+  max-width: 1400px;
 }
 
-.home-content-container h1 {
+/* ── Premium Pre-Heading ── */
+.home-pre-heading-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 3.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--text-white), var(--cyan-glow));
+  gap: clamp(8px, 2vw, 16px);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: elementFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+.home-accent-line {
+  width: clamp(15px, 4vw, 30px);
+  height: 1px;
+  background: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+}
+
+.home-pre-heading-text {
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: clamp(2px, 0.5vw, 4px);
+  color: var(--cyan-glow, #00d4ff);
+  text-transform: uppercase;
+}
+
+/* ── Main Typography ── */
+.home-heading {
+  font-size: clamp(1.8rem, 7vw, 5.8rem);
+  font-weight: 900;
+  color: var(--text-white, #ffffff);
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin: 0 0 24px 0;
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: elementFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  will-change: transform, opacity;
+}
+
+.home-highlight {
+  background: linear-gradient(135deg, #ffffff 10%, var(--cyan-glow, #00d4ff) 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -1px;
-  padding: 0 0 10px 0;
+  text-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+  display: inline-block;
+  padding-right: 5px;
 }
 
-.home-content-subtitle {
-  font-size: 1.3rem;
-  color: var(--text-grey);
-  margin-bottom: 30px;
-  font-weight: 300;
-}
+/* ── Upgraded Subtitle ── */
+.home-subtitle-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(10px, 2vw, 16px);
+  margin-bottom: clamp(35px, 6vw, 30px);
 
-.home-content-container h1 {
   opacity: 0;
-  transform: translateX(-40px);
-  /* start slightly off-screen left */
-  animation: home-heading-slideIn 700ms ease-out 120ms forwards;
-  /* duration + delay */
-  will-change: transform, opacity;
-  /* performance hint */
+  transform: translateY(20px);
+  animation: elementFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
 }
 
-@keyframes home-heading-slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-    /* end "stable" at natural position */
-  }
+/* Unified Professional Color for Roles */
+.home-role {
+  font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+  font-weight: 400;
+  color: var(--text-grey, #a0b9d5);
+  letter-spacing: 0.8px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
-.home-content-container p {
-  opacity: 0;
-  transform: translateX(-40px);
-  /* start slightly off-screen left */
-  animation: home-para-slideIn 700ms ease-out 500ms forwards;
-  /* duration + delay */
-  will-change: transform, opacity;
-  /* performance hint */
+/* Glowing Neon Dots */
+.home-role-dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--cyan-glow, #00d4ff);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--cyan-glow, #00d4ff);
+  opacity: 0.8;
 }
 
-@keyframes home-para-slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-    /* end "stable" at natural position */
-  }
-}
-
-/* Glassmorphic Button Styling */
-.home-btn {
+/* ── Premium CTA Button ── */
+.home-cta-wrapper {
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
+
   opacity: 0;
   transform: translateY(20px);
-  animation: home-btn-slideIn 700ms ease-out 800ms forwards;
-  background: var(--cyan-glow-light);
-  border: 1px solid var(--glass-border);
-  /* light border */
-  color: var(--cyan-glow);
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 12px;
+  animation: elementFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+
+.home-premium-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(14px, 3vw, 16px) clamp(40px, 5vw, 48px);
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+  color: var(--cyan-glow, #00d4ff);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: inset 0 0 10px 1px var(--glass-bg);
+  letter-spacing: 2px;
+  transition: color 0.4s ease;
 }
 
-.home-btn:hover {
-  background: var(--bg-dark-blue);
-  border-color: var(--cyan-glow);
-  /* box-shadow: 0 8px 32px rgba(0, 212, 255, 0.25); */
-  transform: translateY(-2px);
+/* Laser sweep effect layer */
+.btn-glow-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 212, 255, 0.4),
+      transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
 }
 
-.home-btn:active {
-  transform: translateY(0px);
-  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
+.home-premium-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--cyan-glow, #00d4ff);
+  transform: translateY(-4px);
+  box-shadow:
+    0 15px 35px rgba(0, 212, 255, 0.2),
+    inset 0 0 20px rgba(0, 212, 255, 0.1);
 }
 
-@keyframes home-btn-slideIn {
+.home-premium-btn:hover .btn-text {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.home-premium-btn:hover .btn-glow-sweep {
+  left: 100%;
+}
+
+.home-premium-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+}
+
+@keyframes elementFadeUp {
   to {
     opacity: 1;
-    transform: translateX(0);
-    /* end "stable" at natural position */
+    transform: translateY(0);
   }
 }
 
-/* Respect users who prefer reduced motion */
-/* @media (prefers-reduced-motion: reduce) {
-  .home-content-container h1 p {
+/* ============================================================
+   RESPONSIVE OVERRIDES (Perfect Frame Scaling)
+   ============================================================ */
+
+/* ── Tablets & Laptops (Max 1024px) ── */
+@media (max-width: 1024px) {
+  .home-heading {
+    letter-spacing: -1px;
+  }
+}
+
+/* ── Mobile Devices (Max 768px) ── */
+@media (max-width: 768px) {
+  .home-heading {
+    font-size: clamp(2.4rem, 9vw, 4rem);
+    /* Increased from the default */
+  }
+
+  .home-heading {
+    line-height: 1.15;
+  }
+
+  .home-subtitle-container {
+    gap: 10px;
+    margin-bottom: 40px;
+    padding: 0 10px;
+  }
+
+  /* Removed boxes: Roles and dots remain clean text globally */
+}
+
+/* ── Small Mobile / Foldables (Max 480px) ── */
+@media (max-width: 480px) {
+  .home-heading {
+    letter-spacing: -0.5px;
+  }
+
+  .home-subtitle-container {
+    /* Slightly tighter gap on very small screens */
+    gap: 8px;
+  }
+}
+
+/* ── Extra Small Foldables (Max 340px) ── */
+@media (max-width: 340px) {
+  .home-heading {
+    font-size: 1.8rem;
+    /* Absolute safety net for extremely small screens */
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .home-pre-heading-container,
+  .home-heading,
+  .home-subtitle-container,
+  .home-cta-wrapper {
     animation: none;
     opacity: 1;
     transform: none;
   }
-} */
 
-.home-page-to-about-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--cyan-glow);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--cyan-glow);
+  .home-cinematic-backlight {
+    animation: none;
   }
 }
