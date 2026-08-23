@@ -79,7 +79,6 @@
   align-items: center;
   text-align: center;
   margin-bottom: 52px;
-  /* animation: cv-header-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; */
   animation: cv-header-in 0.8s var(--transition-slow) both;
 }
 
@@ -156,7 +155,7 @@
   align-items: flex-start;
   gap: 36px;
   width: 100%;
-  animation: cv-content-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  /* animation: cv-content-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both; */
 }
 
 @keyframes cv-content-in {
@@ -177,6 +176,8 @@
   flex-direction: column;
   gap: 10px;
   flex-shrink: 0;
+  width: auto;
+  max-width: 100%;
 }
 
 .cv-viewer-label {
@@ -209,13 +210,12 @@
     var(--shadow-glow-cyan),
     inset 0 1px 0 var(--glass-surface-light);
   opacity: 0;
-  transform: translateX(36px);
+  transform: translateX(-16px);
   animation: download-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
   will-change: opacity, transform;
   transition:
     box-shadow var(--transition-base),
     border-color var(--transition-base);
-
 }
 
 .download-cv-container:hover {
@@ -497,7 +497,7 @@
 .show-pdf {
   display: block;
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateX(-16px);
   animation: cv-pdf-in 0.6s ease-out 0.3s forwards;
   will-change: opacity, transform;
 }
@@ -505,7 +505,7 @@
 @keyframes cv-pdf-in {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -631,26 +631,147 @@
   line-height: 1.7;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
+.pdf-skeleton-placeholder {
+  min-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .pdf-skeleton-placeholder {
+    min-width: 100%;
+    height: 60vh !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================================ */
+
+/* ── Large Tablet / Small Desktop ── */
+@media (max-width: 1024px) {
   .cv-main-container {
-    padding: 80px 16px 60px;
+    padding: 100px 30px 60px;
   }
 
   .cv-pdf-viewer-and-download-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
+    gap: 24px;
+  }
+}
+
+/* ── Tablets (Shrink Card to a Small Button - Centered) ── */
+@media (max-width: 900px) {
+  .cv-main-container {
+    padding: 100px 20px 60px;
   }
 
+  .cv-pdf-viewer-and-download-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    /* Keeps both PDF and Button centered */
+    gap: 16px;
+  }
+
+  /* 1. Strip the card styles */
   .download-cv-container {
-    width: 100%;
-    max-width: 480px;
+    /* No align-self here, so it naturally centers */
+    width: auto;
     transform: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .download-cv-container:hover {
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  /* 2. Hide everything except the button */
+  .download-cv-icon-badge,
+  .download-cv-heading-container,
+  .download-cv-subtitle,
+  .download-cv-features {
+    display: none !important;
+  }
+
+  /* 3. Make the button itself smaller and more compact */
+  .download-cv-container .download-cv-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .download-cv-btn-span svg {
+    width: 18px;
+    height: 18px;
   }
 
   .pdf-error {
     width: 100%;
     max-width: 420px;
+  }
+
+  .cv-viewer-wrapper {
+    width: 100%;
+    align-items: center;
+  }
+}
+
+/* ── Mobile Devices (Button Aligns Right) ── */
+@media (max-width: 768px) {
+  .cv-main-container {
+    padding: 100px 16px 40px;
+  }
+
+  /* Push the button to the right side on mobile */
+  .download-cv-container {
+    align-self: flex-end;
+  }
+
+  /* Scale the react-pdf canvas down to prevent horizontal overflow */
+  .react-pdf__Page__canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: var(--radius-sm);
+  }
+
+  .no-cv-container {
+    padding: 60px 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .cv-main-heading {
+    font-size: 2.2rem;
+  }
+}
+
+/* ── Small Mobile Screens ── */
+@media (max-width: 480px) {
+  .cv-page-header {
+    margin-bottom: 40px;
+  }
+
+  .cv-main-heading {
+    font-size: 1.8rem;
+  }
+
+  .pdf-pagination-controls-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .pdf-pagination-prev-btn,
+  .pdf-pagination-next-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .pdf-page-name {
+    width: 100%;
+    order: -1;
+    margin-bottom: 4px;
   }
 }

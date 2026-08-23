@@ -3,13 +3,14 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import axios from "axios";
+import DOMPurify from "dompurify";
 
 import "../page-css/contact.css";
 
 import { FaGithub } from "react-icons/fa";
 import { ImLinkedin2 } from "react-icons/im";
 import { MdLocationOn, MdEmail, MdPhone, MdAccessTime, MdMessage, MdSend, MdPublic } from "react-icons/md";
-import { Mail } from 'lucide-react'
+import { Mail } from "lucide-react";
 
 import Footer from "./Footer";
 
@@ -50,44 +51,74 @@ const Contact = () => {
     email: "",
     subject: "",
     message: "",
+    bot_field: "", // Honeypot field for catching automated spam bots
   };
 
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, control, formState, reset } =
-    useForm(contactDetails);
+  const { register, handleSubmit, control, formState, reset } = useForm({
+    defaultValues: contactDetails,
+    mode: "onTouched",
+  });
   const { errors } = formState;
 
   const onSubmitContactData = async (data) => {
+    // 1. Honeypot Validation: Abort if a bot filled the hidden input
+    if (data.bot_field) {
+      console.warn("Automated submission detected and dropped.");
+      toast.success("Message sent successfully!"); // Lie to the bot
+      reset();
+      return;
+    }
+
     setLoading(true);
-    const url = import.meta.env.VITE_API_BACKEND_URL + "/contact-me";
+
+    // 2. Payload Sanitization: Strip any executable scripts/HTML
+    const payload = {
+      access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+      name: DOMPurify.sanitize(data.personName.trim()),
+      email: DOMPurify.sanitize(data.email.trim().toLowerCase()),
+      subject: DOMPurify.sanitize(data.subject.trim()),
+      message: DOMPurify.sanitize(data.message.trim()),
+      from_name: "Innovex Portfolio",
+    };
+
+    // 3. Retrieve dynamic endpoint from .env with a secure fallback
+    const targetUrl = import.meta.env.VITE_WEB3FORMS_URL || "https://api.web3forms.com/submit";
 
     try {
-      const response = await axios.post(url, data);
-      if (response.status === 200 || response.status === 201) {
-        setLoading(false);
-        toast.success("Message sent successfully!");
+      const response = await axios.post(targetUrl, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        timeout: 8000,
+      });
+
+      if (response.status === 200) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
         reset();
       } else {
-        setLoading(false);
-        alert("Failed to send message. Please try again later.");
-        reset();
+        throw new Error("Unexpected server response");
       }
     } catch (error) {
-      setLoading(false);
       console.error("Error sending contact data:", error);
       toast.error("Failed to send message. Please try again later.");
-      reset();
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
       <div className="contact-main-container">
-
         <div className="contact-content-wrapper">
+
           {/* Left Column: Info Section */}
           <div className="contact-info-section">
-            <h1 className="contact-heading">Let's <br /><span className="highlight">Connect</span></h1>
+            <h1 className="contact-heading">
+              Let's <br />
+              <span className="highlight">Connect</span>
+            </h1>
 
             <p className="contact-subtitle">
               I'd love to hear from you.<br />
@@ -97,21 +128,27 @@ const Contact = () => {
 
             <div className="contact-info-list">
               <div className="contact-info-item">
-                <div className="info-icon"><MdPublic /></div>
+                <div className="info-icon">
+                  <MdPublic />
+                </div>
                 <div className="info-details">
                   <h4>Time Zone</h4>
                   <p>IST (GMT +5:30)</p>
                 </div>
               </div>
               <div className="contact-info-item">
-                <div className="info-icon"><MdAccessTime /></div>
+                <div className="info-icon">
+                  <MdAccessTime />
+                </div>
                 <div className="info-details">
                   <h4>Availability</h4>
-                  <p>Open for opportunities & collaborations</p>
+                  <p>Open for opportunities &amp; collaborations</p>
                 </div>
               </div>
               <div className="contact-info-item">
-                <div className="info-icon"><MdMessage /></div>
+                <div className="info-icon">
+                  <MdMessage />
+                </div>
                 <div className="info-details">
                   <h4>Response Time</h4>
                   <p>Usually within 12-24 hours</p>
@@ -120,10 +157,14 @@ const Contact = () => {
             </div>
 
             <div className="contact-help-box">
-              <div className="help-icon"><MdMessage /></div>
+              <div className="help-icon">
+                <MdMessage />
+              </div>
               <div className="help-details">
                 <h4>Have an idea?</h4>
-                <p>Let's turn your vision into reality. Reach out and let's get the conversation started.</p>
+                <p>
+                  Let's turn your vision into reality. Reach out and let's get the conversation started.
+                </p>
               </div>
             </div>
           </div>
@@ -137,6 +178,16 @@ const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit(onSubmitContactData)}>
+
+                {/* Honeypot Input - Invisible to humans */}
+                <input
+                  type="text"
+                  style={{ display: "none" }}
+                  {...register("bot_field")}
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
+
                 <div className="contact-input-form-container">
                   <label htmlFor="contact-name">
                     Name <span className="contact-form-imp-star">*</span>
@@ -144,46 +195,43 @@ const Contact = () => {
                   <input
                     type="text"
                     id="contact-name"
-                    name="personName"
                     placeholder="Enter your name"
                     autoFocus={true}
                     {...register("personName", {
                       required: "*Required",
+                      maxLength: { value: 60, message: "*Name too long" },
                       pattern: {
-                        value: /^[a-zA-Z\s]{3,}$/,
-                        message: "*Enter minimum 3 characters",
+                        value: /^[a-zA-Z\s.-]{3,}$/,
+                        message: "*Enter minimum 3 characters (letters only)",
                       },
                     })}
                     disabled={loading}
                   />
-                  {control.getFieldState("personName").isTouched && (
-                    <p className="contact-form-error-message">
-                      {errors.personName?.message}
-                    </p>
+                  {control.getFieldState("personName").isTouched && errors.personName && (
+                    <p className="contact-form-error-message">{errors.personName.message}</p>
                   )}
                 </div>
 
                 <div className="contact-input-form-container">
                   <label htmlFor="contact-email">
-                    Email <span className="contact-form-imp-star">*</span></label>
+                    Email <span className="contact-form-imp-star">*</span>
+                  </label>
                   <input
-                    type="text"
+                    type="email"
                     id="contact-email"
-                    name="email"
                     placeholder="Enter your email"
                     {...register("email", {
                       required: "*Required",
+                      maxLength: { value: 100, message: "*Email too long" },
                       pattern: {
-                        value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/,
-                        message: "*Enter valid email address",
+                        value: /^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$/,
+                        message: "*Enter a valid email address",
                       },
                     })}
                     disabled={loading}
                   />
-                  {control.getFieldState("email").isTouched && (
-                    <p className="contact-form-error-message">
-                      {errors.email?.message}
-                    </p>
+                  {control.getFieldState("email").isTouched && errors.email && (
+                    <p className="contact-form-error-message">{errors.email.message}</p>
                   )}
                 </div>
 
@@ -194,45 +242,41 @@ const Contact = () => {
                   <input
                     type="text"
                     id="contact-subject"
-                    name="subject"
                     placeholder="Subject of your message"
                     {...register("subject", {
                       required: "*Required",
+                      maxLength: { value: 150, message: "*Subject too long" },
                       pattern: {
-                        value: /^[A-Za-z0-9@ ]{3,}$/,
-                        message: "*Enter valid subject with minimum 3 characters",
+                        value: /^[^<>{}]{3,}$/,
+                        message: "*Invalid characters detected. Minimum 3 characters.",
                       },
                     })}
                     disabled={loading}
                   />
-                  {control.getFieldState("subject").isTouched && (
-                    <p className="contact-form-error-message">
-                      {errors.subject?.message}
-                    </p>
+                  {control.getFieldState("subject").isTouched && errors.subject && (
+                    <p className="contact-form-error-message">{errors.subject.message}</p>
                   )}
                 </div>
+
                 <div className="contact-input-form-container">
                   <label htmlFor="contact-message">
                     Message <span className="contact-form-imp-star">*</span>
                   </label>
                   <textarea
                     id="contact-message"
-                    name="message"
                     placeholder="Write your message here..."
                     {...register("message", {
                       required: "*Required",
+                      maxLength: { value: 2000, message: "*Message exceeds 2000 character limit" },
                       pattern: {
-                        value:
-                          /^(?!.*--)[\p{Extended_Pictographic}A-Za-z0-9 '.-]{3,}$/u,
-                        message: "*Enter valid message.",
+                        value: /^[^<>]{3,}$/,
+                        message: "*Message contains invalid characters (e.g., < or >).",
                       },
                     })}
                     disabled={loading}
                   ></textarea>
-                  {control.getFieldState("message").isTouched && (
-                    <p className="contact-form-error-message">
-                      {errors.message?.message}
-                    </p>
+                  {control.getFieldState("message").isTouched && errors.message && (
+                    <p className="contact-form-error-message">{errors.message.message}</p>
                   )}
                 </div>
 
@@ -251,10 +295,7 @@ const Contact = () => {
         {/* Social Links List */}
         <ul className="contact-social-links-list-container">
           {contactList.map((contact) => (
-            <li
-              key={contact.id}
-              className="contact-social-links-item tooltip-container"
-            >
+            <li key={contact.id} className="contact-social-links-item tooltip-container">
               <NavLink
                 to={contact.link}
                 target="_blank"
@@ -267,7 +308,6 @@ const Contact = () => {
             </li>
           ))}
         </ul>
-
       </div>
       <Footer />
     </>

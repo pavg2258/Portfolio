@@ -136,15 +136,10 @@
 .projects-heading-rule {
   width: 0;
   height: 3px;
-  border-radius: 99px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--cyan-glow, #00d4ff),
-    transparent
-  );
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
   animation: rule-expand 1.2s ease-out 0.4s forwards;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 @keyframes rule-expand {
@@ -241,11 +236,9 @@
 }
 
 .projects-sidebar-btn.active {
-  background: linear-gradient(
-    90deg,
-    rgba(26, 42, 63, 0.6),
-    var(--cyan-glow-weak)
-  );
+  background: linear-gradient(90deg,
+      rgba(26, 42, 63, 0.6),
+      var(--cyan-glow-weak));
 }
 
 /* Number badge: dim when inactive, bright cyan when active */
@@ -603,7 +596,7 @@
 /* ── Responsive ── */
 @media (max-width: 820px) {
   .my-projects-container {
-    padding: 80px 16px 60px;
+    padding: 100px 16px 60px;
   }
 
   .projects-unified-card {

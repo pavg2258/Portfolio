@@ -25,14 +25,12 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 212, 255, 0.5) 25%,
-    rgba(0, 212, 255, 0.8) 50%,
-    rgba(0, 212, 255, 0.5) 75%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.5) 25%,
+      rgba(0, 212, 255, 0.8) 50%,
+      rgba(0, 212, 255, 0.5) 75%,
+      transparent 100%);
 }
 
 /* ===========================
@@ -58,13 +56,13 @@
 .footer-logo {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-white);
   margin: 0;
   letter-spacing: -0.5px;
 }
 
 .footer-logo-dot {
-  color: #00d4ff;
+  color: var(--cyan-glow);
 }
 
 .footer-brand-tagline {
@@ -118,12 +116,12 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: #00d4ff;
+  background: var(--cyan-glow);
   transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .footer-link:hover {
-  color: #00d4ff;
+  color: var(--cyan-glow);
 }
 
 .footer-link:hover::after {
@@ -160,7 +158,7 @@
 .footer-social-icon:hover {
   background: rgba(0, 212, 255, 0.1);
   border-color: rgba(0, 212, 255, 0.35);
-  color: #00d4ff;
+  color: var(--cyan-glow);
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 212, 255, 0.15);
 }
@@ -198,10 +196,23 @@
 }
 
 @keyframes footer-heartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.2); }
-  50% { transform: scale(1); }
-  75% { transform: scale(1.15); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  75% {
+    transform: scale(1.15);
+  }
 }
 
 /* ===========================

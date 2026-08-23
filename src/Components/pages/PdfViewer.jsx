@@ -5,12 +5,8 @@ import { Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-import { DotLoader } from "react-spinners";
-import { FaCaretLeft } from "react-icons/fa";
-import { FaCaretRight } from "react-icons/fa";
-import { BsExclamationCircleFill } from "react-icons/bs";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa6";
-import { VscRefresh } from "react-icons/vsc";
 
 const PdfViewer = ({ pdf, onLoadingState }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,15 +16,13 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
 
   useEffect(() => {
     onLoadingState(isLoading, error);
-  }, [isLoading, error]);
+  }, [isLoading, error, onLoadingState]);
 
   const onDocumentLoadSuccess = (data) => {
     setNumPages(data.numPages);
     setPageNumber(1);
     setError(null);
   };
-
-  // Errors
 
   const onDocumentLoadError = (err) => {
     console.error("Error loading PDF:", err);
@@ -42,32 +36,11 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
     setIsLoading(false);
   };
 
-  //   Retry handler
-  const onRetry = () => {
-    setIsLoading(true);
-    setError(null);
-    setPageNumber(1);
-
-    // Get Request to reload the PDF
-  };
-
-  const nextPage = () => {
-    setPageNumber((prev) => (prev < numPages ? prev + 1 : prev));
-  };
-
-  const prevPage = () => {
-    setPageNumber((prev) => (prev >= 1 ? prev - 1 : prev));
-  };
+  const nextPage = () => setPageNumber((prev) => (prev < numPages ? prev + 1 : prev));
+  const prevPage = () => setPageNumber((prev) => (prev >= 1 ? prev - 1 : prev));
 
   return (
     <>
-      {/* Loading indicator */}
-      {isLoading && !error && (
-        <div className="pdf-loader-container">
-          <DotLoader color={`var(--cyan-glow)`} /> Loading...
-        </div>
-      )}
-
       {/* Error message */}
       {error && (
         <div className="no-cv-container">
@@ -79,7 +52,6 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
             A CV hasn&apos;t been uploaded to display here yet. Check back soon!
           </p>
         </div>
-
       )}
 
       <div>
@@ -89,7 +61,6 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
           onLoadSuccess={onDocumentLoadSuccess}
           onLoadProgress={({ loaded, total }) => {
             if ((loaded / total) * 100 === 100) {
-              console.log(`Loading: ${((loaded / total) * 100).toFixed(1)}%`);
               setIsLoading(false);
             }
           }}
@@ -106,24 +77,17 @@ const PdfViewer = ({ pdf, onLoadingState }) => {
             />
           )}
         </Document>
+
         {/* Pagination Controls */}
         {!isLoading && !error && (
           <div className="pdf-pagination-controls-container">
-            <button
-              onClick={prevPage}
-              disabled={pageNumber <= 1}
-              className="pdf-pagination-prev-btn"
-            >
+            <button onClick={prevPage} disabled={pageNumber <= 1} className="pdf-pagination-prev-btn">
               <FaCaretLeft size={18} height={`100%`} /> Previous
             </button>
             <p className="pdf-page-name">
               Page {pageNumber} of {numPages}
             </p>
-            <button
-              onClick={nextPage}
-              disabled={pageNumber >= numPages}
-              className="pdf-pagination-next-btn"
-            >
+            <button onClick={nextPage} disabled={pageNumber >= numPages} className="pdf-pagination-next-btn">
               Next <FaCaretRight size={18} height={`100%`} />
             </button>
           </div>

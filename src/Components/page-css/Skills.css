@@ -1,734 +1,92 @@
 /* ================================================================
-   Technical Skills — WOW-factor Glassmorphic Redesign
+   EXTRAORDINARY BORDERLESS SKILLS SHOWCASE
+   Fluid asymmetric data-flow layout with a highly styled hero.
    ================================================================ */
 
-/* ── Page wrapper ──────────────────────────────────────────── */
-.skills-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.sk-fluid-wrapper {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
-  padding: 0 40px 100px;
-  color: var(--text-white);
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* ================================================================
-   HERO SECTION
-   ================================================================ */
-.sk-hero {
-  width: 100%;
-  max-width: 900px;
-  text-align: center;
-  padding: 130px 0 60px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Ambient background orbs */
-.sk-orb {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(80px);
-  opacity: 0.18;
-  z-index: 0;
-}
-
-.sk-orb-a {
-  width: 500px;
-  height: 500px;
-  top: -60px;
-  left: -200px;
-  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
-  animation: skOrbFloat 14s ease-in-out infinite alternate;
-}
-
-.sk-orb-b {
-  width: 400px;
-  height: 400px;
-  top: 0;
-  right: -180px;
-  background: radial-gradient(circle, #a855f7 0%, transparent 70%);
-  animation: skOrbFloat 18s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes skOrbFloat {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-
-  to {
-    transform: translate(30px, 40px) scale(1.08);
-  }
-}
-
-/* Hero badge */
-.sk-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(0, 212, 255, 0.08);
-  border: 1px solid rgba(0, 212, 255, 0.28);
-  border-radius: 100px;
-  padding: 5px 16px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: #00d4ff;
-  margin-bottom: 22px;
-  opacity: 0;
-  animation: skFadeUp 0.7s ease-out 0.2s forwards;
-  position: relative;
-  z-index: 1;
-}
-
-.sk-hero-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #00d4ff;
-  box-shadow: 0 0 6px #00d4ff;
-  animation: skPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes skPulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.4;
-    transform: scale(0.65);
-  }
-}
-
-/* Main heading */
-.skills-heading {
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
-  font-weight: 900;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, #ffffff, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0 0 14px;
-  opacity: 0;
-  animation: skFadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
-  position: relative;
-  z-index: 1;
-}
-
-/* Animated underline */
-.skills-heading::after {
-  content: "";
-  display: block;
-  height: 3px;
-  width: 0;
-  background: linear-gradient(90deg, transparent, #00d4ff, transparent);
-  border-radius: 10px;
-  margin: 12px auto 0;
-  animation: skUnderline 1s ease-out 0.7s forwards;
-}
-
-@keyframes skUnderline {
-  to {
-    width: 200px;
-  }
-}
-
-/* Subtitle */
-.skills-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-bottom: 28px;
-  letter-spacing: 0.3px;
-  opacity: 0;
-  animation: skFadeUp 0.7s ease-out 0.5s forwards;
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Animated terminal line ───────────────────────────────── */
-.sk-terminal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(0, 212, 255, 0.2);
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.85rem;
-  margin-bottom: 40px;
-  opacity: 0;
-  animation: skFadeUp 0.7s ease-out 0.65s forwards;
-  position: relative;
-  z-index: 1;
-}
-
-.sk-terminal-prompt {
-  color: #00ff88;
-  font-weight: 700;
-  margin-right: 4px;
-}
-
-.sk-terminal-cmd {
-  color: rgba(220, 240, 255, 0.8);
-}
-
-.sk-terminal-cursor {
-  display: inline-block;
-  width: 9px;
-  height: 1.1em;
-  background: #00d4ff;
-  border-radius: 1px;
-  margin-left: 3px;
-  animation: skBlink 1s step-end infinite;
-  vertical-align: middle;
-}
-
-@keyframes skBlink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
-/* ── Stats strip ──────────────────────────────────────────── */
-.sk-stats-strip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  background: var(--glass-surface-light);
-  border: 1px solid var(--glass-surface-border);
-  border-radius: 14px;
-  padding: 14px 32px;
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  animation: skFadeUp 0.7s ease-out 0.8s forwards;
-  position: relative;
-  z-index: 1;
-}
-
-.sk-stat {
+  padding: 100px 5vw 120px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 24px;
-}
-
-.sk-stat-num {
-  font-size: 1.9rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fff, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-}
-
-.sk-stat-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(160, 185, 215, 0.7);
-  margin-top: 4px;
-}
-
-.sk-stat-divider {
-  width: 1px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* ================================================================
-   FILTER BAR
-   ================================================================ */
-.sk-filter-bar {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 48px;
-  max-width: 1260px;
-  width: 100%;
-}
-
-.sk-filter-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: rgba(200, 220, 240, 0.8);
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  letter-spacing: 0.2px;
-  backdrop-filter: blur(6px);
-}
-
-.sk-filter-pill:hover {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: rgba(0, 212, 255, 0.4);
-  color: #00d4ff;
-  transform: translateY(-2px);
-}
-
-.sk-filter-pill.sk-filter-active {
-  background: rgba(0, 212, 255, 0.15);
-  border-color: rgba(0, 212, 255, 0.6);
-  color: #00d4ff;
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
-  font-weight: 700;
-}
-
-/* ================================================================
-   SCROLL REVEAL
-   ================================================================ */
-.sk-reveal {
-  opacity: 0;
-  transform: translateY(36px) scale(0.97);
-  transition:
-    opacity 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--sk-delay, 0s),
-    transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--sk-delay, 0s);
-}
-
-.sk-reveal.sk-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* ================================================================
-   SKILL CARDS GRID
-   ================================================================ */
-.skill-grid {
-  width: 100%;
-  max-width: 1260px;
-}
-
-.skill-item-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  width: 100%;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* ── Individual card ──────────────────────────────────────── */
-.skill-items {
-  position: relative;
-  border-radius: 20px;
   overflow: hidden;
-  isolation: isolate;
-
-  /* Glass base */
-  background: var(--glass-card-bg);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid var(--glass-card-border);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-
-  transition:
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.4s ease,
-    border-color 0.35s ease;
-  will-change: transform, box-shadow;
-}
-
-/* Hover lift */
-.skill-items:hover {
-  transform: translateY(-10px) scale(1.015);
-  border-color: var(--sk-border-hover, rgba(0, 212, 255, 0.45));
-  box-shadow:
-    0 22px 55px rgba(0, 0, 0, 0.5),
-    0 0 32px var(--sk-glow, rgba(0, 212, 255, 0.2)),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* ── Top accent colour bar ───────────────────────────────── */
-.sk-card-accent-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--sk-accent-bar, linear-gradient(90deg, transparent, #00d4ff, transparent));
-  border-radius: 20px 20px 0 0;
-  pointer-events: none;
   z-index: 2;
 }
 
-/* ── Shimmer sweep on hover ──────────────────────────────── */
-.skill-items::after {
-  content: "";
+.sk-ambient-glow {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.04) 50%,
-      transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0s;
+  top: 50%;
+  left: 50%;
+  width: 60vw;
+  height: 60vw;
+  transform: translate(-50%, -50%);
+  filter: blur(150px);
+  opacity: 0.08;
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 1;
+  transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
 }
 
-.skill-items:hover::after {
-  animation: skCardShimmer 0.6s ease forwards;
+.sk-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
 }
 
-@keyframes skCardShimmer {
-  from {
-    transform: translateX(-100%);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
+/* ==========================================
+   TOP SECTION: Centered Header & Terminal
+   ========================================== */
+.sk-top-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-/* ── Card header ─────────────────────────────────────────── */
-.skill-card-header {
+/* --- TECHNICAL OVERVIEW --- */
+.sk-tiny-heading-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 22px 22px 16px;
-  position: relative;
-  z-index: 3;
+  gap: 16px;
+  margin-bottom: 12px;
 }
 
-.skill-category-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--sk-tag-bg, rgba(0, 212, 255, 0.08));
-  border: 1px solid var(--sk-tag-border, rgba(0, 212, 255, 0.28));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-  box-shadow: 0 0 14px var(--sk-glow, rgba(0, 212, 255, 0.15));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-}
-
-.skill-items:hover .skill-category-icon {
-  transform: scale(1.12) rotate(6deg);
-  box-shadow: 0 0 22px var(--sk-glow, rgba(0, 212, 255, 0.3));
-}
-
-.sk-header-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.skill-name {
+.sk-tiny-line {
+  font-size: var(--fs-xs);
   font-weight: 700;
-  color: var(--sk-tag-color, #00d4ff);
-  font-size: 1.1rem;
-  letter-spacing: 0.2px;
-  text-shadow: 0 0 14px var(--sk-glow, rgba(0, 212, 255, 0.3));
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan-glow);
 }
 
-.skill-count-badge {
-  flex-shrink: 0;
-  font-size: 0.72rem;
+.sk-tiny-heading {
+  font-size: var(--fs-xs);
   font-weight: 700;
-  color: var(--sk-tag-color, #00d4ff);
-  background: var(--sk-tag-bg, rgba(0, 212, 255, 0.08));
-  border: 1px solid var(--sk-tag-border, rgba(0, 212, 255, 0.28));
-  border-radius: 100px;
-  padding: 3px 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan-glow);
 }
 
-.sk-badge-label {
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-/* ── Divider ─────────────────────────────────────────────── */
-.skills-hr-line {
-  margin: 0 20px 18px;
-  border: none;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--sk-tag-border, rgba(0, 212, 255, 0.22)), transparent);
-}
-
-/* ── Skill tags ──────────────────────────────────────────── */
-.skill-level-container {
+/* Title & Underline */
+.sk-title-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 8px;
-  padding: 0 18px 22px;
-  margin: 0;
-  position: relative;
-  z-index: 3;
-}
-
-.skill-level {
-  padding: 6px 14px;
-  border: 1px solid var(--sk-tag-border, rgba(0, 212, 255, 0.28));
-  background: var(--sk-tag-bg, rgba(0, 212, 255, 0.07));
-  border-radius: 100px;
-  font-size: 0.82rem;
-  color: rgba(215, 235, 255, 0.9);
-  font-weight: 500;
-  white-space: nowrap;
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  cursor: default;
-  letter-spacing: 0.15px;
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.25s ease;
-  /* Staggered tag fade-in */
-  opacity: 0;
-  animation: skTagAppear 0.4s ease-out calc(0.3s + var(--tag-delay, 0s)) forwards;
+  text-align: center;
+  margin-bottom: 52px;
+  width: 100%;
+  max-width: 760px;
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.sk-reveal.sk-visible .skill-level {
-  /* Will pick up the animation after the card is visible */
-}
-
-@keyframes skTagAppear {
+@keyframes fade-up {
   from {
     opacity: 0;
-    transform: scale(0.85) translateY(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-.skill-level:hover {
-  background: var(--sk-tag-hover-bg, rgba(0, 212, 255, 0.16));
-  border-color: var(--sk-tag-color, #00d4ff);
-  color: var(--sk-tag-color, #00d4ff);
-  transform: translateY(-3px) scale(1.06);
-  box-shadow: 0 4px 14px var(--sk-glow, rgba(0, 212, 255, 0.2));
-  cursor: pointer;
-}
-
-/* ================================================================
-   KEYWORD-BASED ACCENT CLASSES
-   ================================================================ */
-
-/* 🔥 Offensive */
-.sk-red-orange {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #ff4500, transparent);
-  --sk-glow: rgba(255, 69, 0, 0.30);
-  --sk-border-hover: rgba(255, 69, 0, 0.60);
-  --sk-tag-color: #ff6230;
-  --sk-tag-bg: rgba(255, 69, 0, 0.10);
-  --sk-tag-border: rgba(255, 69, 0, 0.32);
-  --sk-tag-hover-bg: rgba(255, 69, 0, 0.22);
-}
-
-/* 🎯 Pentest */
-.sk-crimson {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #dc143c, transparent);
-  --sk-glow: rgba(220, 20, 60, 0.28);
-  --sk-border-hover: rgba(220, 20, 60, 0.55);
-  --sk-tag-color: #f43f5e;
-  --sk-tag-bg: rgba(220, 20, 60, 0.09);
-  --sk-tag-border: rgba(220, 20, 60, 0.30);
-  --sk-tag-hover-bg: rgba(220, 20, 60, 0.20);
-}
-
-/* 🔴 Red team */
-.sk-red {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #ef4444, transparent);
-  --sk-glow: rgba(239, 68, 68, 0.28);
-  --sk-border-hover: rgba(239, 68, 68, 0.55);
-  --sk-tag-color: #f87171;
-  --sk-tag-bg: rgba(239, 68, 68, 0.09);
-  --sk-tag-border: rgba(239, 68, 68, 0.30);
-  --sk-tag-hover-bg: rgba(239, 68, 68, 0.20);
-}
-
-/* 🔐 Security */
-.sk-pink {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #ec4899, transparent);
-  --sk-glow: rgba(236, 72, 153, 0.26);
-  --sk-border-hover: rgba(236, 72, 153, 0.52);
-  --sk-tag-color: #f472b6;
-  --sk-tag-bg: rgba(236, 72, 153, 0.09);
-  --sk-tag-border: rgba(236, 72, 153, 0.28);
-  --sk-tag-hover-bg: rgba(236, 72, 153, 0.18);
-}
-
-/* 🔗 Network */
-.sk-blue {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #3b82f6, transparent);
-  --sk-glow: rgba(59, 130, 246, 0.25);
-  --sk-border-hover: rgba(59, 130, 246, 0.50);
-  --sk-tag-color: #60a5fa;
-  --sk-tag-bg: rgba(59, 130, 246, 0.08);
-  --sk-tag-border: rgba(59, 130, 246, 0.28);
-  --sk-tag-hover-bg: rgba(59, 130, 246, 0.18);
-}
-
-/* 🌐 Web */
-.sk-cyan {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #00d4ff, transparent);
-  --sk-glow: rgba(0, 212, 255, 0.25);
-  --sk-border-hover: rgba(0, 212, 255, 0.50);
-  --sk-tag-color: #00d4ff;
-  --sk-tag-bg: rgba(0, 212, 255, 0.08);
-  --sk-tag-border: rgba(0, 212, 255, 0.28);
-  --sk-tag-hover-bg: rgba(0, 212, 255, 0.18);
-}
-
-/* 🛠️ Backend */
-.sk-teal {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #14b8a6, transparent);
-  --sk-glow: rgba(20, 184, 166, 0.25);
-  --sk-border-hover: rgba(20, 184, 166, 0.50);
-  --sk-tag-color: #2dd4bf;
-  --sk-tag-bg: rgba(20, 184, 166, 0.08);
-  --sk-tag-border: rgba(20, 184, 166, 0.28);
-  --sk-tag-hover-bg: rgba(20, 184, 166, 0.18);
-}
-
-/* 🗄️ Database */
-.sk-green {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #22c55e, transparent);
-  --sk-glow: rgba(34, 197, 94, 0.25);
-  --sk-border-hover: rgba(34, 197, 94, 0.50);
-  --sk-tag-color: #4ade80;
-  --sk-tag-bg: rgba(34, 197, 94, 0.08);
-  --sk-tag-border: rgba(34, 197, 94, 0.28);
-  --sk-tag-hover-bg: rgba(34, 197, 94, 0.18);
-}
-
-/* 🧰 Tools */
-.sk-amber {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #f59e0b, transparent);
-  --sk-glow: rgba(245, 158, 11, 0.25);
-  --sk-border-hover: rgba(245, 158, 11, 0.50);
-  --sk-tag-color: #fbbf24;
-  --sk-tag-bg: rgba(245, 158, 11, 0.08);
-  --sk-tag-border: rgba(245, 158, 11, 0.28);
-  --sk-tag-hover-bg: rgba(245, 158, 11, 0.18);
-}
-
-/* 💻 Languages */
-.sk-purple {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #a855f7, transparent);
-  --sk-glow: rgba(168, 85, 247, 0.25);
-  --sk-border-hover: rgba(168, 85, 247, 0.50);
-  --sk-tag-color: #c084fc;
-  --sk-tag-bg: rgba(168, 85, 247, 0.08);
-  --sk-tag-border: rgba(168, 85, 247, 0.28);
-  --sk-tag-hover-bg: rgba(168, 85, 247, 0.18);
-}
-
-/* ☁️ Cloud */
-.sk-sky {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #0ea5e9, transparent);
-  --sk-glow: rgba(14, 165, 233, 0.25);
-  --sk-border-hover: rgba(14, 165, 233, 0.50);
-  --sk-tag-color: #38bdf8;
-  --sk-tag-bg: rgba(14, 165, 233, 0.08);
-  --sk-tag-border: rgba(14, 165, 233, 0.28);
-  --sk-tag-hover-bg: rgba(14, 165, 233, 0.18);
-}
-
-/* 🚀 DevOps */
-.sk-orange {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #f97316, transparent);
-  --sk-glow: rgba(249, 115, 22, 0.25);
-  --sk-border-hover: rgba(249, 115, 22, 0.50);
-  --sk-tag-color: #fb923c;
-  --sk-tag-bg: rgba(249, 115, 22, 0.08);
-  --sk-tag-border: rgba(249, 115, 22, 0.28);
-  --sk-tag-hover-bg: rgba(249, 115, 22, 0.18);
-}
-
-/* 🐧 Linux */
-.sk-lime {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #84cc16, transparent);
-  --sk-glow: rgba(132, 204, 22, 0.25);
-  --sk-border-hover: rgba(132, 204, 22, 0.50);
-  --sk-tag-color: #a3e635;
-  --sk-tag-bg: rgba(132, 204, 22, 0.08);
-  --sk-tag-border: rgba(132, 204, 22, 0.28);
-  --sk-tag-hover-bg: rgba(132, 204, 22, 0.18);
-}
-
-/* 📱 Mobile */
-.sk-violet {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #8b5cf6, transparent);
-  --sk-glow: rgba(139, 92, 246, 0.25);
-  --sk-border-hover: rgba(139, 92, 246, 0.50);
-  --sk-tag-color: #a78bfa;
-  --sk-tag-bg: rgba(139, 92, 246, 0.08);
-  --sk-tag-border: rgba(139, 92, 246, 0.28);
-  --sk-tag-hover-bg: rgba(139, 92, 246, 0.18);
-}
-
-/* 🤖 AI / ML */
-.sk-indigo {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #6366f1, transparent);
-  --sk-glow: rgba(99, 102, 241, 0.25);
-  --sk-border-hover: rgba(99, 102, 241, 0.50);
-  --sk-tag-color: #818cf8;
-  --sk-tag-bg: rgba(99, 102, 241, 0.08);
-  --sk-tag-border: rgba(99, 102, 241, 0.28);
-  --sk-tag-hover-bg: rgba(99, 102, 241, 0.18);
-}
-
-/* 🧪 Testing */
-.sk-yellow {
-  --sk-accent-bar: linear-gradient(90deg, transparent, #eab308, transparent);
-  --sk-glow: rgba(234, 179, 8, 0.25);
-  --sk-border-hover: rgba(234, 179, 8, 0.50);
-  --sk-tag-color: #facc15;
-  --sk-tag-bg: rgba(234, 179, 8, 0.08);
-  --sk-tag-border: rgba(234, 179, 8, 0.28);
-  --sk-tag-hover-bg: rgba(234, 179, 8, 0.18);
-}
-
-/* ================================================================
-   NO SKILLS / SHARED KEYFRAMES
-   ================================================================ */
-@keyframes skFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(-20px);
   }
 
   to {
@@ -737,135 +95,383 @@
   }
 }
 
-.no-skills-container {
+.sk-main-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 20%, var(--cyan-glow, #00d4ff) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+/* Subtitle: use --text-grey / --text-muted, not a raw hex */
+/* .projects-page-subtitle {
+  font-size: 0.96rem;
+  color: var(--text-muted, #a0b9d5);
+  line-height: 1.75;
+  max-width: 500px;
+} */
+
+/* Underline rule: two-stop cyan with gentle opacity */
+.sk-heading-rule {
+  width: 0;
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--cyan-glow, #00d4ff),
+      transparent);
+  animation: rule-expand 0.8s ease-out 0.4s forwards;
+}
+
+@keyframes rule-expand {
+  to {
+    width: 120px;
+  }
+}
+
+/* Authentic Linux Terminal */
+.sk-linux-terminal {
+  width: 100%;
+  max-width: 650px;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  text-align: left;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.sk-term-topbar {
+  background: #1e1e1e;
+  padding: 8px 14px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #000;
+}
+
+.sk-term-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red {
+  background: #ff5f56;
+}
+
+.dot-yellow {
+  background: #ffbd2e;
+}
+
+.dot-green {
+  background: #27c93f;
+}
+
+.sk-term-content {
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #e5e7eb;
+  user-select: none;
+}
+
+.term-line {
+  margin-bottom: 4px;
+}
+
+/* Kali Linux Terminal Coloring */
+.term-bracket {
+  color: #d1d5db;
+}
+
+.term-user {
+  color: #84cc16;
+  font-weight: bold;
+}
+
+.term-colon {
+  color: #d1d5db;
+}
+
+.term-path {
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+.term-prompt {
+  color: #d1d5db;
+  margin-right: 8px;
+}
+
+.term-cmd {
+  color: #f3f4f6;
+}
+
+.term-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background: #d1d5db;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: termBlink 1s step-end infinite;
+}
+
+@keyframes termBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ==========================================
+   BOTTOM SECTION: Asymmetric Flow
+   ========================================== */
+.sk-layout-columns {
+  display: flex;
+  width: 100%;
+  gap: 80px;
+  align-items: center;
+}
+
+.sk-category-column {
+  flex: 1;
+}
+
+/* Navigation List */
+.sk-category-list {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.sk-category-trigger {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
   align-items: center;
-  margin-top: 80px;
-  opacity: 0;
-  animation: skFadeUp 0.8s ease-out 0.4s forwards;
+  gap: 20px;
 }
 
-.no-skill-img {
-  width: 260px;
+/* Hollow / Solid Text Effect */
+.sk-trigger-text {
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  padding-block: 8px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-muted);
+  opacity: 0.5;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sk-category-trigger:hover .sk-trigger-text {
   opacity: 0.8;
+  -webkit-text-stroke: 1px var(--cat-color);
 }
 
-.no-skills-heading {
-  margin-top: 28px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #00d4ff;
+.sk-category-trigger.active .sk-trigger-text {
+  color: var(--text-white);
+  -webkit-text-stroke: 1px transparent;
+  opacity: 1;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
-.no-skills-description {
-  margin-top: 8px;
-  color: rgba(160, 185, 215, 0.8);
-  font-size: 1rem;
+.sk-active-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cat-color);
+  box-shadow: 0 0 15px var(--cat-color), 0 0 30px var(--cat-color);
+  animation: pulseNode 2s infinite ease-in-out;
 }
 
-/* ================================================================
-   RESPONSIVE
-   ================================================================ */
-@media (max-width: 1100px) {
-  .skill-item-container {
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+/* ==========================================
+   RIGHT COLUMN: Borderless Flow
+   ========================================== */
+.sk-skills-column {
+  flex: 1.2;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.sk-skills-canvas {
+  width: 100%;
+  padding-left: 50px;
+  position: relative;
+  transition: opacity 0.15s ease-out;
+}
+
+/* Data-Stream Gradient Divider */
+.sk-skills-canvas::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--glass-border-strong), transparent);
+}
+
+.sk-skills-canvas.fading {
+  opacity: 0;
+}
+
+.sk-skills-canvas.visible {
+  opacity: 1;
+}
+
+.sk-canvas-title {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.sk-nodes-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 48px;
+  row-gap: 32px;
+}
+
+/* Unboxed Skill Items */
+.sk-skill-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  font-weight: 400;
+  opacity: 0;
+  transform: translateX(20px);
+  animation: slideInNode 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--node-delay) forwards;
+}
+
+.sk-skill-node:hover {
+  color: var(--text-white);
+  transform: translateX(5px) !important;
+  transition: all 0.3s ease;
+}
+
+.sk-node-bullet {
+  width: 12px;
+  height: 2px;
+  background: var(--node-color);
+  box-shadow: 0 0 10px var(--node-color);
+  transition: width 0.3s ease;
+}
+
+.sk-skill-node:hover .sk-node-bullet {
+  width: 24px;
+}
+
+.sk-node-text {
+  letter-spacing: 0.02em;
+}
+
+.sk-node-trail {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, var(--node-color), transparent);
+  transition: width 0.4s ease;
+  opacity: 0.5;
+}
+
+.sk-skill-node:hover .sk-node-trail {
+  width: 150%;
+}
+
+/* ==========================================
+   ANIMATIONS & RESPONSIVE
+   ========================================== */
+@keyframes slideInNode {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseNode {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sk-layout-columns {
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .sk-skills-column {
+    min-height: auto;
+    width: 100%;
+  }
+
+  .sk-skills-canvas {
+    padding-left: 0;
+  }
+
+  .sk-skills-canvas::before {
+    display: none;
+  }
+
+  .sk-category-list {
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .skills-container {
-    padding: 0 18px 80px;
+  .sk-fluid-wrapper {
+    padding: 100px 20px 60px;
   }
 
-  .sk-hero {
-    padding: 120px 0 48px;
+  .sk-main-title {
+    font-size: 2.5rem;
   }
 
-  .skills-heading {
-    font-size: 2rem;
-  }
-
-  .skill-item-container {
-    grid-template-columns: 1fr;
+  .sk-nodes-container {
+    flex-direction: column;
     gap: 16px;
   }
 
-  .sk-stats-strip {
-    padding: 12px 20px;
-  }
-
-  .sk-stat {
-    padding: 0 14px;
-  }
-
-  .sk-stat-num {
-    font-size: 1.5rem;
-  }
-
-  .sk-filter-bar {
-    gap: 8px;
-  }
-
-  .sk-filter-pill {
-    font-size: 0.76rem;
-    padding: 6px 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  .skills-container {
-    padding: 0 12px 60px;
-  }
-
-  .sk-hero {
-    padding: 110px 0 38px;
-  }
-
-  .skills-heading {
-    font-size: 1.75rem;
-  }
-
-  .sk-terminal {
+  .sk-linux-terminal {
     font-size: 0.75rem;
-    padding: 6px 12px;
-  }
-
-  .sk-stats-strip {
-    flex-wrap: wrap;
-    gap: 10px 0;
-    border-radius: 12px;
-  }
-
-  .skill-card-header {
-    padding: 18px 16px 14px;
-  }
-
-  .skill-level-container {
-    padding: 0 14px 16px;
-    gap: 7px;
-  }
-
-  .skill-level {
-    font-size: 0.78rem;
-    padding: 5px 11px;
-  }
-}
-
-/* ── Reduced motion ──────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-
-  .sk-reveal,
-  .skills-heading,
-  .skills-subtitle,
-  .sk-hero-badge,
-  .sk-terminal,
-  .sk-stats-strip,
-  .skill-level {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 }

@@ -6,7 +6,10 @@
   justify-content: center;
   color: var(--text-white);
   margin-top: 100px;
-  padding: 0 20px;
+  padding: 0 5vw;
+  /* Dynamic padding based on screen width */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 :root {
@@ -309,78 +312,6 @@
 }
 
 .contact-social-links-list-container .contact-social-links-item .contact-social-links {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(141, 239, 255, 0.04), rgba(201, 247, 234, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  transition: transform .22s ease, box-shadow .22s ease;
-  text-decoration: none;
-  color: var(--accent-1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.45);
-  position: relative;
-  overflow: visible;
-}
-
-.contact-social-links-list-container .contact-social-links-item .contact-social-links:before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  box-shadow: 0 0 0 0 rgba(141, 239, 255, 0.12);
-  transition: box-shadow .28s ease, transform .28s ease;
-}
-
-.contact-social-links-list-container .contact-social-links-item .contact-social-links:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 32px 80px rgba(141, 239, 255, 0.08);
-}
-
-.contact-social-links-list-container .contact-social-links-item .contact-social-links:hover:before {
-  box-shadow: 0 0 40px 6px rgba(141, 239, 255, 0.06);
-}
-
-@keyframes contact-appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-  .contact-content-wrapper {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .contact-heading {
-    font-size: 3.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-form-card {
-    padding: 24px;
-  }
-
-  .contact-heading {
-    font-size: 2.8rem;
-  }
-}
-
-.contact-social-links-list-container .contact-social-links-item .contact-social-links {
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -451,4 +382,178 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@keyframes contact-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES (Fixed Alignment & Padding)
+   ============================================================ */
+
+/* ── Large Tablet / Small Desktop ── */
+@media (max-width: 1024px) {
+  .contact-content-wrapper {
+    gap: 40px;
+  }
+
+  .contact-heading {
+    font-size: 3.8rem;
+  }
+}
+
+/* ── Tablets (Switch to 1-column layout) ── */
+@media (max-width: 968px) {
+  .contact-main-container {
+    margin-top: 60px;
+    padding: 0 40px;
+    /* Strict left/right padding */
+  }
+
+  .contact-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    max-width: 600px;
+    /* Constrains the width so it doesn't stretch */
+    margin: 0 auto 50px auto;
+    /* Centers the whole block perfectly */
+  }
+
+  /* Keep it left-aligned (looks best for this design) */
+  .contact-info-section {
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .contact-heading {
+    font-size: 3.5rem;
+  }
+
+  /* Keep the animated underline left-aligned */
+  .contact-heading::after {
+    margin: 24px 0 0 0;
+  }
+
+  .contact-info-list,
+  .contact-info-item,
+  .contact-help-box {
+    width: 100%;
+    max-width: 100%;
+    /* Allows it to fill the constrained 600px wrapper */
+  }
+}
+
+/* ── Mobile Devices ── */
+@media (max-width: 768px) {
+  .contact-main-container {
+    padding: 0 24px;
+    /* Slightly tighter padding for mobile */
+  }
+
+  .contact-heading {
+    font-size: 2.8rem;
+  }
+
+  .contact-form-card {
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+
+  /* Stack the mail icon directly above the "Send me a Message" text */
+  .form-card-header {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .form-card-header h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Perfectly center the glowing line under the form heading */
+  .form-card-header::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    bottom: -6px;
+  }
+
+  .contact-input-form-container input,
+  .contact-input-form-container textarea {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Small Mobile Screens ── */
+@media (max-width: 480px) {
+  .contact-main-container {
+    padding: 0 16px;
+    margin-top: 40px;
+  }
+
+  .contact-content-wrapper {
+    gap: 40px;
+  }
+
+  .contact-heading {
+    font-size: 2.4rem;
+  }
+
+  .contact-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Keep info items left-aligned but stack the icon and text */
+  .contact-info-item {
+    gap: 16px;
+    padding-bottom: 24px;
+  }
+
+  .info-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .contact-help-box {
+    padding: 20px;
+  }
+
+  .contact-help-box .help-icon {
+    font-size: 1.6rem;
+  }
+
+  /* Scale down social links */
+  .contact-social-links-list-container {
+    gap: 14px;
+  }
+
+  .contact-social-links-list-container .contact-social-links-item .contact-social-links {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+}
+
+/* ── Extra Small Screens (Fold phones etc) ── */
+@media (max-width: 380px) {
+  .contact-heading {
+    font-size: 2rem;
+  }
+
+  .contact-form-card {
+    padding: 24px 16px;
+  }
 }

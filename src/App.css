@@ -83,10 +83,14 @@ body {
     --bg-indigo: #1a2a3f;
 
     /* Dark layered surfaces used by cards, sidebars, panels */
-    --surface-dark: rgba(10, 16, 30, 0.92);      /* sidebar / heavy card */
-    --surface-mid: rgba(13, 20, 32, 0.75);        /* content panel */
-    --surface-glass: rgba(15, 25, 40, 0.55);      /* inner containers / desc lists */
-    --surface-hover: rgba(0, 212, 255, 0.08);     /* hover fill */
+    --surface-dark: rgba(10, 16, 30, 0.92);
+    /* sidebar / heavy card */
+    --surface-mid: rgba(13, 20, 32, 0.75);
+    /* content panel */
+    --surface-glass: rgba(15, 25, 40, 0.55);
+    /* inner containers / desc lists */
+    --surface-hover: rgba(0, 212, 255, 0.08);
+    /* hover fill */
 
     /* ── Glass / borders ── */
     --glass-bg: rgba(0, 212, 255, 0.3);
@@ -109,10 +113,13 @@ body {
 
     /* ── Text hierarchy ── */
     --text-white: #ffffff;
-    --text-primary: #d6e3f0;     /* body text on dark navy cards */
-    --text-secondary: #a0b9d5;   /* subtitles, labels (same as --text-muted visually) */
+    --text-primary: #d6e3f0;
+    /* body text on dark navy cards */
+    --text-secondary: #a0b9d5;
+    /* subtitles, labels (same as --text-muted visually) */
     --text-grey: #b0b0b0;
-    --text-dim: #8aa3bc;         /* sub-items, fine print */
+    --text-dim: #8aa3bc;
+    /* sub-items, fine print */
     --text-muted: rgba(160, 185, 215, 0.85);
 
     /* ── Error / Status ── */
@@ -140,12 +147,34 @@ body {
     --radius-xl: 24px;
     --radius-pill: 99px;
 
+    /* ── Typography (Font Sizes) ── */
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-md: 1.125rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 1.5rem;
+    --fs-2xl: 1.8rem;
+    --fs-3xl: 2.2rem;
+    --fs-4xl: 3rem;
+
     /* ── Misc ── */
     --glow-blur: blur(20px);
     --font-lucida: "Lucida Calligraphy";
     --font-roboto: "Roboto";
     --bg-dark-blue: rgba(0, 212, 255, 0.15);
     --skill-bg-color: rgba(128, 128, 128, 0.236);
+
+    /* Cyber Security Accents */
+    --cyber-red: #ff3366;
+    --cyber-amber: #ffaa00;
+    --cyber-green: #00ff88;
+    --cyber-blue: #0066ff;
+    /* Used for gradients */
+
+    /* Deep Glass Backgrounds */
+    --glass-panel-dark: rgba(6, 15, 32, 0.6);
+    --glass-panel-light: rgba(8, 18, 36, 0.55);
 }
 
 html {
