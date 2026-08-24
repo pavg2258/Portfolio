@@ -22,7 +22,7 @@ const CV = ({ isVisibleFooter }) => {
   const [pdfLoadingError, setPdfLoadingError] = useState(null);
 
   useEffect(() => {
-    document.title = "My CV — Professional Experience | Innovex Portfolio";
+    document.title = "My CV - Professional Experience | Innovex Portfolio";
   }, []);
 
   const handleDownload = (e) => {
