@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Home from "./Components/pages/Home";
@@ -47,7 +47,7 @@ const App = () => {
 
     return (
         <>
-            <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <HashRouter>
                 <Routes>
                     {/* Normal Routes with Navbar */}
                     <Route element={<Layout />}>
@@ -62,7 +62,7 @@ const App = () => {
                     {/* Not Found (without Navbar) */}
                     <Route exact path="*" element={<NotFound />} />
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
