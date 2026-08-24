@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Home from "./Components/pages/Home";
@@ -12,6 +12,15 @@ import Navbar from "./Components/pages/Navbar";
 import Skills from "./Components/pages/Skills";
 import About from "./Components/pages/About";
 import Projects from "./Components/pages/Projects";
+
+const Layout = () => {
+    return (
+        <>
+            <Navbar />
+            <Outlet />
+        </>
+    );
+};
 
 const App = () => {
     const [particles, setParticles] = useState([]);
@@ -39,17 +48,18 @@ const App = () => {
     return (
         <>
             <BrowserRouter basename={import.meta.env.BASE_URL}>
-                <Navbar />
                 <Routes>
-                    {/* Normal Routes */}
-                    <Route exact path="/" element={<Home />} />
-                    <Route exact path="/about" element={<About />} />
-                    <Route exact path="/skills" element={<Skills />} />
-                    <Route exact path="/projects" element={<Projects />} />
-                    <Route exact path="/contact" element={<Contact />} />
-                    <Route exact path="/cv" element={<CV />} />
+                    {/* Normal Routes with Navbar */}
+                    <Route element={<Layout />}>
+                        <Route exact path="/" element={<Home />} />
+                        <Route exact path="/about" element={<About />} />
+                        <Route exact path="/skills" element={<Skills />} />
+                        <Route exact path="/projects" element={<Projects />} />
+                        <Route exact path="/contact" element={<Contact />} />
+                        <Route exact path="/cv" element={<CV />} />
+                    </Route>
 
-                    {/* Not Found */}
+                    {/* Not Found (without Navbar) */}
                     <Route exact path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
