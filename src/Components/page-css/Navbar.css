@@ -56,11 +56,12 @@
   align-items: center;
   text-decoration: none !important;
   margin: 0;
+  gap: 5px;
 }
 
 .navbar-logo {
-  height: 90px;
-  width: 90px;
+  height: 60px;
+  width: 60px;
   object-fit: contain;
   object-position: center;
   border-radius: 6px;
@@ -125,7 +126,7 @@
 
 .navbar-menu-item:hover {
   color: var(--cyan-glow) !important;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 .navbar-menu-item.active {

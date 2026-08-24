@@ -25,7 +25,7 @@ const contactList = [
     id: 2,
     platform: "GitHub",
     icon: <FaGithub />,
-    link: "",
+    link: "https://github.com/pavg2258",
   },
   {
     id: 3,
@@ -298,6 +298,7 @@ const Contact = () => {
             <li key={contact.id} className="contact-social-links-item tooltip-container">
               <NavLink
                 to={contact.link}
+                title={contact.platform}
                 target="_blank"
                 rel="noreferrer"
                 className="contact-social-links tooltip-trigger"

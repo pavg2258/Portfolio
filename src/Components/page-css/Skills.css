@@ -14,6 +14,7 @@
   z-index: 2;
 }
 
+/* ── 1. AMBIENT GLOW REVEAL ── */
 .sk-ambient-glow {
   position: absolute;
   top: 50%;
@@ -22,11 +23,25 @@
   height: 60vw;
   transform: translate(-50%, -50%);
   filter: blur(150px);
-  opacity: 0.08;
+  opacity: 0;
+  /* Starts hidden */
   border-radius: 50%;
   pointer-events: none;
   transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: -1;
+  animation: ambientBoot 2s ease-out 0.2s forwards;
+}
+
+@keyframes ambientBoot {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  to {
+    opacity: 0.08;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .sk-container {
@@ -47,12 +62,14 @@
   margin-bottom: 40px;
 }
 
-/* --- TECHNICAL OVERVIEW --- */
+/* ── 2. TINY HEADING REVEAL ── */
 .sk-tiny-heading-wrapper {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 12px;
+  opacity: 0;
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
 }
 
 .sk-tiny-line {
@@ -71,7 +88,7 @@
   color: var(--cyan-glow);
 }
 
-/* Title & Underline */
+/* ── 3. MAIN TITLE REVEAL ── */
 .sk-title-wrapper {
   display: flex;
   flex-direction: column;
@@ -80,7 +97,8 @@
   margin-bottom: 52px;
   width: 100%;
   max-width: 760px;
-  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0;
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
 }
 
 @keyframes fade-up {
@@ -107,24 +125,13 @@
   margin-bottom: 16px;
 }
 
-/* Subtitle: use --text-grey / --text-muted, not a raw hex */
-/* .projects-page-subtitle {
-  font-size: 0.96rem;
-  color: var(--text-muted, #a0b9d5);
-  line-height: 1.75;
-  max-width: 500px;
-} */
-
-/* Underline rule: two-stop cyan with gentle opacity */
 .sk-heading-rule {
   width: 0;
   height: 3px;
   border-radius: 99px;
-  background: linear-gradient(90deg,
-      transparent,
-      var(--cyan-glow, #00d4ff),
-      transparent);
-  animation: rule-expand 0.8s ease-out 0.4s forwards;
+  background: linear-gradient(90deg, transparent, var(--cyan-glow, #00d4ff), transparent);
+  animation: rule-expand 0.8s ease-out 0.6s forwards;
+  /* Delayed until after text appears */
 }
 
 @keyframes rule-expand {
@@ -133,7 +140,7 @@
   }
 }
 
-/* Authentic Linux Terminal */
+/* ── 4. TERMINAL BOOT UP ── */
 .sk-linux-terminal {
   width: 100%;
   max-width: 650px;
@@ -144,6 +151,19 @@
   overflow: hidden;
   text-align: left;
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Initial state */
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  /* The boot animation */
+  animation: terminalBoot 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+
+@keyframes terminalBoot {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .sk-term-topbar {
@@ -184,7 +204,6 @@
   margin-bottom: 4px;
 }
 
-/* Kali Linux Terminal Coloring */
 .term-bracket {
   color: #d1d5db;
 }
@@ -192,10 +211,6 @@
 .term-user {
   color: #84cc16;
   font-weight: bold;
-}
-
-.term-colon {
-  color: #d1d5db;
 }
 
 .term-path {
@@ -256,6 +271,7 @@
   align-items: flex-start;
 }
 
+/* ── 5. SEQUENTIAL NAVIGATION SLIDE-IN ── */
 .sk-category-trigger {
   position: relative;
   background: transparent;
@@ -266,6 +282,44 @@
   display: flex;
   align-items: center;
   gap: 20px;
+
+  /* Initial State */
+  opacity: 0;
+  transform: translateX(-40px);
+  /* Triggers stagger in sequentially after the terminal */
+  animation: slideInNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Stagger calculation for the 6 menu items */
+.sk-category-trigger:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.sk-category-trigger:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.sk-category-trigger:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.sk-category-trigger:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.sk-category-trigger:nth-child(5) {
+  animation-delay: 0.7s;
+}
+
+.sk-category-trigger:nth-child(6) {
+  animation-delay: 0.8s;
+}
+
+@keyframes slideInNav {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Hollow / Solid Text Effect */
@@ -314,14 +368,27 @@
   align-items: center;
 }
 
+/* ── 6. CANVAS REVEAL ── */
 .sk-skills-canvas {
   width: 100%;
   padding-left: 50px;
   position: relative;
-  transition: opacity 0.15s ease-out;
+
+  /* Smooth crossfade when switching categories */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+
+  /* Initial boot animation */
+  opacity: 0;
+  animation: canvasReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
 }
 
-/* Data-Stream Gradient Divider */
+@keyframes canvasReveal {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Data-Stream Gradient Divider - Shoots down from top */
 .sk-skills-canvas::before {
   content: "";
   position: absolute;
@@ -330,22 +397,48 @@
   bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, var(--glass-border-strong), transparent);
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: lineDrop 1s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+}
+
+@keyframes lineDrop {
+  to {
+    transform: scaleY(1);
+  }
 }
 
 .sk-skills-canvas.fading {
   opacity: 0;
+  transform: translateX(10px);
 }
 
 .sk-skills-canvas.visible {
   opacity: 1;
+  transform: translateX(0);
 }
 
+/* Title Animation */
 .sk-canvas-title {
   font-size: var(--fs-xl);
   font-weight: 600;
   letter-spacing: 0.05em;
   margin-bottom: 40px;
   text-transform: uppercase;
+  opacity: 0;
+  animation: titleSlide 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+@keyframes titleSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .sk-nodes-container {
@@ -355,7 +448,8 @@
   row-gap: 32px;
 }
 
-/* Unboxed Skill Items */
+/* ── 7. PREMIUM NODE ANIMATION ── 
+   (Triggers on load AND every category click) */
 .sk-skill-node {
   position: relative;
   display: flex;
@@ -364,31 +458,45 @@
   font-size: var(--fs-md);
   color: var(--text-primary);
   font-weight: 400;
+
+  /* Hidden initially */
   opacity: 0;
-  transform: translateX(20px);
-  animation: slideInNode 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--node-delay) forwards;
+  transform: translateX(40px) skewX(-10deg);
+
+  /* Advanced bounce-in that reads your JSX --node-delay */
+  animation: cyberNodeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--node-delay) forwards;
 }
 
 .sk-skill-node:hover {
   color: var(--text-white);
-  transform: translateX(5px) !important;
-  transition: all 0.3s ease;
+  transform: translateX(8px) scale(1.02) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .sk-node-bullet {
-  width: 12px;
+  width: 0px;
+  /* Starts at 0 for animation */
   height: 2px;
   background: var(--node-color);
   box-shadow: 0 0 10px var(--node-color);
   transition: width 0.3s ease;
+
+  /* The glowing line shoots out after the text arrives */
+  animation: bulletShoot 0.4s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--node-delay) + 0.3s) forwards;
 }
 
 .sk-skill-node:hover .sk-node-bullet {
-  width: 24px;
+  width: 28px;
 }
 
 .sk-node-text {
   letter-spacing: 0.02em;
+  text-shadow: 0 0 10px transparent;
+  transition: text-shadow 0.3s ease;
+}
+
+.sk-skill-node:hover .sk-node-text {
+  text-shadow: 0 0 15px var(--node-color);
 }
 
 .sk-node-trail {
@@ -409,10 +517,25 @@
 /* ==========================================
    ANIMATIONS & RESPONSIVE
    ========================================== */
-@keyframes slideInNode {
-  to {
+@keyframes cyberNodeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(40px) skewX(-10deg);
+  }
+
+  70% {
+    transform: translateX(-5px) skewX(0);
+  }
+
+  100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) skewX(0);
+  }
+}
+
+@keyframes bulletShoot {
+  to {
+    width: 12px;
   }
 }
 
@@ -473,5 +596,27 @@
 
   .sk-linux-terminal {
     font-size: 0.75rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .sk-ambient-glow,
+  .sk-tiny-heading-wrapper,
+  .sk-title-wrapper,
+  .sk-heading-rule,
+  .sk-linux-terminal,
+  .sk-category-trigger,
+  .sk-skills-canvas,
+  .sk-skill-node,
+  .sk-node-bullet {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .sk-node-bullet {
+    width: 12px !important;
   }
 }

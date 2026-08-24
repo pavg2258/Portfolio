@@ -14,19 +14,19 @@ const skillsData = [
     _id: "cat-1",
     category: "Penetration Testing",
     colorVar: "var(--pink-accent)",
-    items: ["Burp Suite", "Metasploit", "Nmap", "OWASP ZAP", "Nikto", "SQLMap", "Hydra", "John the Ripper"],
+    items: ["Burp Suite", "Metasploit", "Nmap", "Nikto", "SQLMap", "Hydra", "John the Ripper"],
   },
   {
     _id: "cat-2",
     category: "Network Infrastructure",
     colorVar: "var(--blue-accent)",
-    items: ["Wireshark", "TCP/IP Protocol", "DNS Routing", "Hardware Firewalls", "VPN Tunneling", "IDS/IPS Systems", "Packet Analysis", "Switch & Router Config"],
+    items: ["Wireshark", "TCP/IP Protocol", "VPN Tunneling", "Packet Analysis", "Scapy"],
   },
   {
     _id: "cat-4",
     category: "Frontend UI/UX",
     colorVar: "var(--cyan-glow)",
-    items: ["React.js", "JavaScript (ES6+)", "Figma", "Tailwind CSS", "HTML5 & CSS3", "Framer Motion", "Responsive Architectures"],
+    items: ["React.js", "JavaScript (ES6+)", "HTML5 & CSS3", "Responsive Web Design"],
   },
   {
     _id: "cat-5",
@@ -38,7 +38,7 @@ const skillsData = [
     _id: "cat-10",
     category: "DevOps & Automation",
     colorVar: "var(--accent-soft)",
-    items: ["Git & GitHub", "Docker", "CI/CD Pipelines", "n8n Automation", "Webhook Integrations", "LLM Scripting"],
+    items: ["Git & GitHub", "CI/CD Pipelines"],
   },
 ];
 
@@ -61,7 +61,7 @@ const Skills = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    document.title = "My Skills | Portfolio";
+    document.title = "My Core Skills | Innovex Portfolio";
   }, []);
 
   // Terminal Typewriter Effect Logic

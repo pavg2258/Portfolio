@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "../page-css/Navbar.css";
 
-import portfolioImg from "../../assets/portfolio-logo.jpg";
+import portfolioImg from "../../assets/portfolio-logo.svg";
 
 const navLinks = [
   { id: "HOME", route: "/", title: "Home" },

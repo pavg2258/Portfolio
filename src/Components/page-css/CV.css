@@ -210,7 +210,7 @@
     var(--shadow-glow-cyan),
     inset 0 1px 0 var(--glass-surface-light);
   opacity: 0;
-  transform: translateX(-16px);
+  transform: translateX(16px);
   animation: download-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
   will-change: opacity, transform;
   transition:
