@@ -1,6 +1,6 @@
 # <img src="./src/assets/Portfolio-logo.svg" width="35" align="top" alt="Logo" /> Innovex - Cybersecurity & Frontend Portfolio
 
-**A clean, high-performance personal portfolio built for Offensive Security Professionals & Frontend Engineers.**
+**A clean, high-performance personal portfolio built to showcase specialized expertise in offensive security and modern frontend engineering.**
 
 <div align="center">
   <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
@@ -19,11 +19,11 @@
 
 ## ✨ Key Features
 
-- 🎯 **Landing Experience**: A meticulously crafted, premium dark-themed interface designed to captivate and deliver an unforgettable first impression.
-- 🔥 **Red Team Focus**: A relentless drive to think like an attacker—breaking down complex systems to uncover vulnerabilities and engineer stronger defenses.
-- 💻 **Interactive Skills Showcase**: A dynamic and creative presentation of technical proficiencies, reflecting a deep passion for continuous learning and problem-solving.
-- 📄 **Dynamic CV & PDF Viewer**: Integrated viewer using `react-pdf` with custom skeleton fallback loaders and direct downloads.
-- ✉️ **Secure Contact Engine**: Client-side input sanitization using `DOMPurify` and Honeypot anti-bot protection.
+- 🎯 **Landing Experience**: A polished, dark-themed interface designed to make a strong first impression.
+- 🔥 **Security-Focused Content**: Dedicated sections highlighting offensive security work, tools, and methodology, alongside frontend engineering projects.
+- 💻 **Interactive Skills Showcase**: A dynamic presentation of technical proficiencies across both security and frontend domains.
+- 📄 **Dynamic CV & PDF Viewer**: Integrated viewer using `react-pdf`, with custom skeleton fallback loaders and direct downloads.
+- ✉️ **Secure Contact Engine**: Client-side input sanitization using `DOMPurify` and honeypot-based anti-bot protection.
 
 ---
 
