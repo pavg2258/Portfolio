@@ -166,6 +166,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  user-select: none;
 }
 
 .btn-text {
