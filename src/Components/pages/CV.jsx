@@ -12,7 +12,7 @@ import { FaFilePdf, FaShieldAlt, FaUserTie } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 
 const CV_FILENAME = "Pavan_Ganesh_Resume_latest.pdf";
-const CV_PDF_PATH = `/${CV_FILENAME}`;
+const CV_PDF_PATH = `${import.meta.env.BASE_URL}${CV_FILENAME}`;
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
