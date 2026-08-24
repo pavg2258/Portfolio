@@ -90,7 +90,7 @@ const CV = ({ isVisibleFooter }) => {
             </div>
 
             {/* RIGHT — Download Card / Skeleton */}
-            {pdfLoading && !pdfLoadingError ? (
+            {pdfLoadingError ? null : pdfLoading ? (
               // Composite Skeleton for the Download Card
               <div className="download-cv-container skeleton-card-override">
                 <SkeletonLoading shape="circle" width="72px" height="72px" style={{ marginBottom: '24px' }} />
