@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import axios from "axios";
 import DOMPurify from "dompurify";
+
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import "../page-css/Contact.css";
 
@@ -52,27 +54,43 @@ const Contact = () => {
     subject: "",
     message: "",
     bot_field: "", // Honeypot field for catching automated spam bots
+    "h-captcha-response": "", // State to store the captcha token
   };
 
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, control, formState, reset } = useForm({
+
+  // 1. Create a reference to reset the hCaptcha widget programmatically
+  const captchaRef = useRef(null);
+
+  const { register, handleSubmit, control, formState, reset, setValue } = useForm({
     defaultValues: contactDetails,
     mode: "onTouched",
   });
   const { errors } = formState;
 
+  const onHCaptchaChange = (token) => {
+    // 2. Save the token into the form state when the user completes the challenge
+    setValue("h-captcha-response", token);
+  };
+
   const onSubmitContactData = async (data) => {
-    // 1. Honeypot Validation: Abort if a bot filled the hidden input
+    // Honeypot Validation: Abort if a bot filled the hidden input
     if (data.bot_field) {
       console.warn("Automated submission detected and dropped.");
-      toast.success("Message sent successfully!"); // Lie to the bot
+      toast.success("Message sent successfully!");
       reset();
+      return;
+    }
+
+    // 3. Captcha Validation: Stop submission if the captcha wasn't completed
+    if (!data["h-captcha-response"]) {
+      toast.error("Please complete the captcha challenge before submitting.");
       return;
     }
 
     setLoading(true);
 
-    // 2. Payload Sanitization: Strip any executable scripts/HTML
+    // Payload Sanitization: Strip any executable scripts/HTML
     const payload = {
       access_key: import.meta.env.VITE_WEB3FORMS_KEY,
       name: DOMPurify.sanitize(data.personName.trim()),
@@ -80,9 +98,9 @@ const Contact = () => {
       subject: DOMPurify.sanitize(data.subject.trim()),
       message: DOMPurify.sanitize(data.message.trim()),
       from_name: "Innovex Portfolio",
+      "h-captcha-response": data["h-captcha-response"], // 4. Pass token to Web3Forms API
     };
 
-    // 3. Retrieve dynamic endpoint from .env with a secure fallback
     const targetUrl = import.meta.env.VITE_WEB3FORMS_URL || "https://api.web3forms.com/submit";
 
     try {
@@ -95,14 +113,22 @@ const Contact = () => {
       });
 
       if (response.status === 200) {
-        toast.success("Message sent successfully! I'll get back to you soon.");
+        toast.success("Message sent successfully! We'll get back to you soon.");
         reset();
+
+        // 5. Reset the visual captcha widget on success
+        captchaRef.current?.resetCaptcha();
+        setValue("h-captcha-response", "");
       } else {
         throw new Error("Unexpected server response");
       }
     } catch (error) {
       console.error("Error sending contact data:", error);
       toast.error("Failed to send message. Please try again later.");
+
+      // Reset the captcha on error so the user can try again securely
+      captchaRef.current?.resetCaptcha();
+      setValue("h-captcha-response", "");
     } finally {
       setLoading(false);
     }
@@ -280,6 +306,16 @@ const Contact = () => {
                   )}
                 </div>
 
+                <div className="captcha-container">
+                  {/* 6. Attach the reference to the HCaptcha component */}
+                  <HCaptcha
+                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                    reCaptchaCompat={false}
+                    onVerify={onHCaptchaChange}
+                    ref={captchaRef}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   className="contact-form-submit-btn"
@@ -287,6 +323,7 @@ const Contact = () => {
                 >
                   {loading ? "Sending..." : "Send Message"} <MdSend className="send-icon" />
                 </button>
+
               </form>
             </div>
           </div>

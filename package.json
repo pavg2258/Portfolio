@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@hcaptcha/react-hcaptcha": "^2.1.0",
     "axios": "^1.19.0",
     "bootstrap": "^5.3.8",
     "dompurify": "^3.4.14",
