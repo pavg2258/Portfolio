@@ -254,8 +254,8 @@
 
   /* Shrink logo slightly on mobile so it doesn't break the smaller navbar */
   .navbar-logo {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
   }
 
   .navbar-logo-name {

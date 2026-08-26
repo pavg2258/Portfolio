@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { Home, User, Code, Briefcase, Mail, FileText, Link, Share2 } from "lucide-react";
+import { Link, Share2 } from "lucide-react";
 
 import portfolioImg from "../../assets/portfolio-logo.svg";
 
@@ -36,36 +36,12 @@ const Footer = () => {
             <Link size={16} className="footer-heading-icon" /> Quick Links
           </h4>
           <ul className="footer-links-list">
-            <li>
-              <NavLink to="/" className="footer-link">
-                <Home size={14} className="footer-link-icon" /> Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="footer-link">
-                <User size={14} className="footer-link-icon" /> About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/skills" className="footer-link">
-                <Code size={14} className="footer-link-icon" /> Skills
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/projects" className="footer-link">
-                <Briefcase size={14} className="footer-link-icon" /> Projects
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact" className="footer-link">
-                <Mail size={14} className="footer-link-icon" /> Contact
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/cv" className="footer-link">
-                <FileText size={14} className="footer-link-icon" /> CV
-              </NavLink>
-            </li>
+            <li><NavLink to="/" className="footer-link">Home</NavLink></li>
+            <li><NavLink to="/about" className="footer-link">About</NavLink></li>
+            <li><NavLink to="/skills" className="footer-link">Skills</NavLink></li>
+            <li><NavLink to="/projects" className="footer-link">Projects</NavLink></li>
+            <li><NavLink to="/contact" className="footer-link">Contact</NavLink></li>
+            <li><NavLink to="/cv" className="footer-link">CV</NavLink></li>
           </ul>
         </div>
 
