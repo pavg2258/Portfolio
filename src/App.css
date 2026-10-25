@@ -357,6 +357,7 @@ html {
 
 /* Hide default cursor on desktop when custom cursor is active */
 @media (hover: hover) and (pointer: fine) {
+
     body.has-custom-cursor,
     body.has-custom-cursor a,
     body.has-custom-cursor button,
@@ -381,13 +382,11 @@ html {
     margin-left: -310px;
     margin-top: -310px;
     border-radius: 50%;
-    background: radial-gradient(
-        circle at center,
-        rgba(0, 212, 255, 0.075) 0%,
-        rgba(0, 212, 255, 0.035) 28%,
-        rgba(79, 70, 229, 0.015) 50%,
-        transparent 70%
-    );
+    background: radial-gradient(circle at center,
+            rgba(0, 212, 255, 0.075) 0%,
+            rgba(0, 212, 255, 0.035) 28%,
+            rgba(79, 70, 229, 0.015) 50%,
+            transparent 70%);
     pointer-events: none;
     z-index: 0;
     opacity: 0;
@@ -414,9 +413,9 @@ html {
     pointer-events: none;
     z-index: 100000;
     opacity: 0;
-    transition: opacity 0.15s ease, 
-                background-color 0.1s ease,
-                box-shadow 0.1s ease;
+    transition: opacity 0.15s ease,
+        background-color 0.1s ease,
+        box-shadow 0.1s ease;
     will-change: transform, opacity;
 }
 
@@ -453,12 +452,12 @@ html {
     opacity: 0;
     /* Lightning-fast 0.12s snap on state changes; transform is driven smoothly by RAF without transition lag */
     transition: width 0.12s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.12s cubic-bezier(0.16, 1, 0.3, 1),
-                margin 0.12s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.1s ease,
-                background-color 0.1s ease,
-                box-shadow 0.1s ease,
-                opacity 0.15s ease;
+        height 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+        margin 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.1s ease,
+        background-color 0.1s ease,
+        box-shadow 0.1s ease,
+        opacity 0.15s ease;
     will-change: transform, width, height;
 }
 
@@ -523,10 +522,21 @@ html {
     box-shadow: 0 0 8px var(--cyan-glow);
 }
 
-.cyber-cursor-ring.cursor--hover .notch-top { top: -6px; }
-.cyber-cursor-ring.cursor--hover .notch-bottom { bottom: -6px; }
-.cyber-cursor-ring.cursor--hover .notch-left { left: -6px; }
-.cyber-cursor-ring.cursor--hover .notch-right { right: -6px; }
+.cyber-cursor-ring.cursor--hover .notch-top {
+    top: -6px;
+}
+
+.cyber-cursor-ring.cursor--hover .notch-bottom {
+    bottom: -6px;
+}
+
+.cyber-cursor-ring.cursor--hover .notch-left {
+    left: -6px;
+}
+
+.cyber-cursor-ring.cursor--hover .notch-right {
+    right: -6px;
+}
 
 /* Danger / Error Accent on Ring */
 .cyber-cursor-ring.cursor--danger {
@@ -578,6 +588,7 @@ html {
         transform: scale(0.6);
         opacity: 0.95;
     }
+
     100% {
         transform: scale(2.2);
         opacity: 0;
@@ -614,12 +625,10 @@ html {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: radial-gradient(
-        500px circle at var(--card-mouse-x, -999px) var(--card-mouse-y, -999px),
-        rgba(0, 212, 255, 0.35) 0%,
-        rgba(102, 217, 240, 0.12) 35%,
-        transparent 65%
-    );
+    background: radial-gradient(500px circle at var(--card-mouse-x, -999px) var(--card-mouse-y, -999px),
+            rgba(0, 212, 255, 0.35) 0%,
+            rgba(102, 217, 240, 0.12) 35%,
+            transparent 65%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -636,6 +645,7 @@ html {
 
 /* ── Accessibility & Touch Protection ── */
 @media (hover: none) and (pointer: coarse) {
+
     .cursor-ambient-spotlight,
     .cyber-cursor-ring,
     .cyber-cursor-dot,
@@ -645,6 +655,7 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .cursor-ambient-spotlight,
     .cyber-cursor-ring,
     .cyber-cursor-dot,

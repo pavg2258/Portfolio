@@ -280,7 +280,7 @@ const Contact = () => {
                   <input
                     type="text"
                     id="contact-subject"
-                    placeholder="Subject of your message"
+                    placeholder="Enter subject of your message"
                     {...register("subject", {
                       required: "*Required",
                       maxLength: { value: 150, message: "*Subject too long" },
